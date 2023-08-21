@@ -19,7 +19,7 @@ if (Object.keys(reducer).length !== 0) {
 
 export const store = configureStore({
   reducer: reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export type AppDispatch = typeof store.dispatch;

@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@mui/material";
 
 import { PageLayout } from '../../../Layout/Components/PageLayout';
 import { SpeedDialMenu } from '../../../Components/Menu/SpeedialMenu';
 import { Modal } from '../../../Components/ModalBox'
+import { Drawers } from '../../../Components/Drawer/Drawers';
+import { FormSelectBox } from '../../../Components/FormElements/FormSelectBox';
 
 import { AddFriendForm } from '../Components/AddFriendForm';
-import { insertFriend, getChatSystemState } from '../Reducer/chatActions';
+import { FriendList } from '../Components/FriendList';
+
+import { insertFriend, getChatSystemState, friendList } from '../Reducer/chatActions';
 import { actions } from '../Config/Constants';
 
 import { useAppDispatch, useAppSelector } from "../../../Services/Hook/Hook";
@@ -14,9 +18,19 @@ import { useAppDispatch, useAppSelector } from "../../../Services/Hook/Hook";
 
 type Props = {}
 const ChatSystem = (props: Props) => {
+
     const dispatch = useAppDispatch();
     const chatState = useAppSelector(getChatSystemState);
     const [openModal, setOpenModal] = useState('');
+    const [DBValue, setDBValue] = useState('');
+
+    const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
+
+
+    useEffect(() => {
+        dispatch(friendList({}));
+        return () => { }
+    }, [chatState.reload])
 
     const handleAction = () => {
         const button = document.getElementById('add-friend-save');
@@ -35,6 +49,14 @@ const ChatSystem = (props: Props) => {
         if (name === "FriendList") {
             setOpenModal("list");
         }
+        if (name === "Change DB") {
+            setOpenModal("changeDB");
+        }
+    }
+
+    const handleChange = (data: string) => {
+        console.log(data, "data");
+        setDBValue(data);
     }
 
     return (
@@ -45,17 +67,26 @@ const ChatSystem = (props: Props) => {
             <Modal
                 open={openModal === "insert" || openModal === "list"}
                 handleClose={() => setOpenModal('')}
-                title="Add Friend"
+                title={openModal === "insert" ? "Add Friend" : "Friend List"}
                 fullScreen={false}
                 handleAction={() => { }}
                 draggable={false}
                 maxWidth="md"
-                ExtraActions={<Button color="primary" onClick={() => handleAction()}>save</Button>}
+                ExtraActions={openModal === "insert" && <Button color="primary" onClick={() => handleAction()}>save</Button>}
             >
                 <div>
                     {openModal === "insert" && <AddFriendForm onSubmit={handleSaveForm} />}
+                    {openModal === "list" && <FriendList dataArray={chatState.friendList} />}
                 </div>
             </Modal>
+
+            <Drawers isOpen={openModal === "changeDB"} anchor={"right"} onClose={(data) => setOpenModal('')}>
+                <div style={{ width: "100%", marginTop: "1rem", padding: "8px" }}>
+                    <p style={{ textAlign: "center" }}>Select DB</p>
+                    <FormSelectBox onChange={handleChange} options={selectOptions} label="Select DB" value={DBValue} />
+                </div>
+            </Drawers>
+
         </PageLayout>
     )
 }

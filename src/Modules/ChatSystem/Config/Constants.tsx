@@ -1,9 +1,11 @@
 import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 
 export const actions = [
     { icon: <FileCopyIcon />, name: 'FriendList', },
     { icon: <SaveIcon />, name: 'Add Friend' },
+    { icon: <WorkHistoryIcon />, name: 'Change DB' }
 ];
 
 export const formValues = [
