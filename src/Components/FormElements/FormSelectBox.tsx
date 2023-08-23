@@ -8,7 +8,8 @@ type FormSelectBoxProps = {
     value: string,
     label: string,
     onChange: (data: string) => void,
-    options: Item[]
+    options: Item[],
+    fullWidth: boolean
 }
 
 type Item = {
@@ -16,28 +17,27 @@ type Item = {
     value: string | number
 }
 
-export const FormSelectBox = ({ value, onChange, label, options = [] }: FormSelectBoxProps) => {
+
+export const FormSelectBox: React.FC<FormSelectBoxProps> = ({ value, onChange, label, options = [], fullWidth = true }) => {
 
     const handleChange = (event: SelectChangeEvent) => {
         onChange(event.target.value);
     };
 
     return (
-        <div>
-            <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">{label}</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={value}
-                    label={label}
-                    onChange={handleChange}
-                >
-                    {options.length > 0 && options.map((item: Item) => {
-                        return <MenuItem value={item.value}>{item.label}</MenuItem>
-                    })}
-                </Select>
-            </FormControl>
-        </div >
+        <FormControl fullWidth={fullWidth}>
+            <InputLabel id="demo-simple-select-label">{label}</InputLabel>
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={value}
+                label={label}
+                onChange={handleChange}
+            >
+                {options.length > 0 && options.map((item: Item) => {
+                    return <MenuItem value={item.value}>{item.label}</MenuItem>
+                })}
+            </Select>
+        </FormControl>
     )
 }

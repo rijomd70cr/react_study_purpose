@@ -10,14 +10,15 @@ import { FormSelectBox } from '../../../Components/FormElements/FormSelectBox';
 import { AddFriendForm } from '../Components/AddFriendForm';
 import { FriendList } from '../Components/FriendList';
 
-import { insertFriend, getChatSystemState, friendList } from '../Reducer/chatActions';
+import { insertFriend, getChatSystemState, friendList, changeDB } from '../Reducer/chatActions';
 import { actions } from '../Config/Constants';
 
 import { useAppDispatch, useAppSelector } from "../../../Services/Hook/Hook";
 
 
-type Props = {}
-const ChatSystem = (props: Props) => {
+type ChatSystemProps = {}
+
+const ChatSystem: React.FC<ChatSystemProps> = () => {
 
     const dispatch = useAppDispatch();
     const chatState = useAppSelector(getChatSystemState);
@@ -55,8 +56,8 @@ const ChatSystem = (props: Props) => {
     }
 
     const handleChange = (data: string) => {
-        console.log(data, "data");
         setDBValue(data);
+        dispatch(changeDB({ dbName: data }));
     }
 
     return (
@@ -81,9 +82,9 @@ const ChatSystem = (props: Props) => {
             </Modal>
 
             <Drawers isOpen={openModal === "changeDB"} anchor={"right"} onClose={(data) => setOpenModal('')}>
-                <div style={{ width: "100%", marginTop: "1rem", padding: "8px" }}>
+                <div style={{ width: "90%", marginTop: "1rem", padding: "8px" }}>
                     <p style={{ textAlign: "center" }}>Select DB</p>
-                    <FormSelectBox onChange={handleChange} options={selectOptions} label="Select DB" value={DBValue} />
+                    <FormSelectBox onChange={handleChange} options={selectOptions} label="Select DB" value={DBValue} fullWidth={true} />
                 </div>
             </Drawers>
 
