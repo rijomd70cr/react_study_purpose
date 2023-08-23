@@ -411,13 +411,9 @@ export const NormalTable: React.FC<NormalTableProps> = ({ headers = [],
                     {extraColumn?.length > 0 &&
                       extraColumn.map((item: any, key: number) => (
                         <TableCell key={key}>
-                          {item.content ? (
-                            <div onClick={() => item.onClick(columnItem)}>
-                              {item.content}
-                            </div>
-                          ) : (
-                            <div>-</div>
-                          )}
+                          {item.content ?
+                            <div onClick={() => item.onClick(columnItem)}>{item.content}</div>
+                            : <div>{item?.component({ row: columnItem })}</div>}
                         </TableCell>
                       ))}
                   </TableRow>

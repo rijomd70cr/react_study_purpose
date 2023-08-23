@@ -1,16 +1,23 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Form } from '../../../Components/FormElements/Formikform/GeneralFormik';
 
 import { formValues } from '../Config/Constants';
 
-export const AddFriendForm = ({ onSubmit = (data) => { } }) => {
+export const AddFriendForm = ({ onSubmit = (data) => { }, initialData = {} }) => {
     const addFriendRef = useRef(null);
-    const initialValues = {
+    const [initialValues, setInitialValues] = useState({
         email: "",
         name: "",
         password: "",
         mobileNo: "",
-    };
+    });
+
+    useEffect(() => {
+        if (Object.keys(initialData).length > 0) {
+            setInitialValues(initialData);
+        }
+        return () => { }
+    }, [initialData])
 
     return (
         <div>

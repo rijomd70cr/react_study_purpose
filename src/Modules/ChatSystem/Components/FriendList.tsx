@@ -1,8 +1,17 @@
 
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+
 import { NormalTable } from '../../../Components/Table/NormalTable';
 import { NormalTableProps } from '../../../Components/Table/NormalTable';
 
-export const FriendList = ({ dataArray = [] }) => {
+type FriendListProps = {
+    dataArray: any[],
+    selectFriend: (data: any, type: string) => void
+}
+
+export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFriend = () => { } }) => {
+
     const headStyle = { backgroundColor: "#e5f3f5", color: "black", textAlign: "start", height: "40px", width: "auto" };
     const headers = [
         {
@@ -25,8 +34,12 @@ export const FriendList = ({ dataArray = [] }) => {
     const extraColumn = [
         {
             headerName: "ACTIONS",
-            content: <div>Select</div>,
-            onClick: (data: any) => { },
+            component: (data: any) => {
+                return <div style={{ display: "flex" }}>
+                    <b onClick={() => selectFriend(data, "edit")}><ModeEditIcon /></b>
+                    <b onClick={() => selectFriend(data, "select")}><PersonAddAlt1Icon /></b>
+                </div>
+            },
         },
     ];
 

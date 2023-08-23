@@ -15,17 +15,17 @@ import { actions } from '../Config/Constants';
 
 import { useAppDispatch, useAppSelector } from "../../../Services/Hook/Hook";
 
-
 type ChatSystemProps = {}
+const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
 
 const ChatSystem: React.FC<ChatSystemProps> = () => {
 
     const dispatch = useAppDispatch();
     const chatState = useAppSelector(getChatSystemState);
+
     const [openModal, setOpenModal] = useState('');
     const [DBValue, setDBValue] = useState('');
-
-    const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
+    const [initialData, setInitialData] = useState({});
 
 
     useEffect(() => {
@@ -60,6 +60,17 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
         dispatch(changeDB({ dbName: data }));
     }
 
+    const selectFriend = (data: any, type: string) => {
+        console.log(data, "data")
+        if (type === "select") {
+
+        }
+        else {
+            setInitialData(data);
+            setOpenModal("insert");
+        }
+    }
+
     return (
         <PageLayout title="Chat System" actions={[]} customMenu={<SpeedDialMenu actions={actions} onClick={onClickSpeedDial} />}>
             <div>
@@ -76,8 +87,8 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
                 ExtraActions={openModal === "insert" && <Button color="primary" onClick={() => handleAction()}>save</Button>}
             >
                 <div>
-                    {openModal === "insert" && <AddFriendForm onSubmit={handleSaveForm} />}
-                    {openModal === "list" && <FriendList dataArray={chatState.friendList} />}
+                    {openModal === "insert" && <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />}
+                    {openModal === "list" && <FriendList dataArray={chatState.friendList} selectFriend={selectFriend} />}
                 </div>
             </Modal>
 
