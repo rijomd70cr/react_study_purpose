@@ -8,17 +8,17 @@ export const FriendList = ({ dataArray = [] }) => {
         {
             name: "name",
             headerName: "Name",
-            isFilterEnabled: true,
+            isFilterEnabled: false,
         },
         {
             name: "email",
             headerName: "Email",
-            isFilterEnabled: true,
+            isFilterEnabled: false,
         },
         {
             name: "mobileNo",
             headerName: "Mobile No",
-            isFilterEnabled: true,
+            isFilterEnabled: false,
         },
     ];
 

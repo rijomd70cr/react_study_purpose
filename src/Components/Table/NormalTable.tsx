@@ -221,13 +221,12 @@ export const NormalTable: React.FC<NormalTableProps> = ({ headers = [],
       let keyValues = Object.keys(columnItem);
 
       let subTableData: any[] = [];
-      let columnField: string = "";
+      let columnField: string = "Sample";
       for (let item of keyValues) {
         if (typeof columnItem[item] === "object") {
           let itemData = columnItem[item].some((value: any) => {
             if (typeof value === "object") {
               columnField = item;
-              return typeof value === "object";
             }
           });
           if (itemData) subTableData = columnItem[item];
