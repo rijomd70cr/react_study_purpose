@@ -13,12 +13,12 @@ import {
   logout,
 } from "../Reducer/LayoutActions";
 import { useAppDispatch, useAppSelector } from "../../Services/Hook/Hook";
-
 import { MenuComponent } from "../../Components/Menu";
+import '../Style/style.css'
 
 const styles: { [key: string]: React.CSSProperties } = {
   flexGrow: { flexGrow: "1" },
-  mr: { marginRight: "2" },
+  mr: { marginRight: "2", height: "48px" }
 };
 type action = {
   name: string;

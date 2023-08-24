@@ -86,7 +86,7 @@ export const GeneralRoutes = React.memo(() => {
             style={{
               display: "flex",
               minHeight: "90vh",
-              marginTop: "4rem",
+              marginTop: "3rem",
             }}
           >
             {sideBarMenu}
