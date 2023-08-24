@@ -37,7 +37,7 @@ type headersInterface = {
   renderDataContent: (data: any) => {};
   isFilterEnabled: boolean;
   FilterComponent: any;
-  width: string;
+  style?: object;
 };
 export type NormalTableProps = {
   headers: any[];
@@ -181,7 +181,7 @@ export const NormalTable: React.FC<NormalTableProps> = ({ headers = [],
     return headerValues.map((item: headersInterface, key: number) => {
       const { FilterComponent } = item;
       return (
-        <StyledTableCell key={key} style={{ width: item.width }}>
+        <StyledTableCell key={key} style={{ ...item?.style }}>
           <TableSortLabel
             style={{ fontSize: "16px" }}
             active={orderBy === item.name}
@@ -305,9 +305,7 @@ export const NormalTable: React.FC<NormalTableProps> = ({ headers = [],
           aria-label="a dense table"
           sx={{
             borderCollapse: "separate",
-            tableLayout: "fixed",
-            margin: "auto",
-            width: "auto",
+            tableLayout: "fixed"
           }}
         >
           <TableHead>

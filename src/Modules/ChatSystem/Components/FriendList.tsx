@@ -5,6 +5,8 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { NormalTable } from '../../../Components/Table/NormalTable';
 import { NormalTableProps } from '../../../Components/Table/NormalTable';
 
+import { ActionComponent } from '../../../Components/Table/NormalTableComponent/ActionComponent';
+
 type FriendListProps = {
     dataArray: any[],
     selectFriend: (data: any, type: string) => void
@@ -35,10 +37,12 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
         {
             headerName: "ACTIONS",
             component: (data: any) => {
-                return <div style={{ display: "flex" }}>
-                    <b onClick={() => selectFriend(data, "edit")}><ModeEditIcon /></b>
-                    <b onClick={() => selectFriend(data, "select")}><PersonAddAlt1Icon /></b>
-                </div>
+                return <ActionComponent actions={
+                    [
+                        { name: "Edit", icon: <ModeEditIcon />, onClick: () => selectFriend(data, "edit") },
+                        { name: "Select", icon: <PersonAddAlt1Icon />, onClick: () => selectFriend(data, "select") }
+                    ]
+                } />
             },
         },
     ];
