@@ -40,6 +40,7 @@ export const Form = forwardRef(
         <Formik
           initialValues={initialValues}
           validationSchema={validateSchema}
+          enableReinitialize={true}
           onSubmit={(values, { setSubmitting }) => {
             setSubmitting(false);
             handleSubmit(values);

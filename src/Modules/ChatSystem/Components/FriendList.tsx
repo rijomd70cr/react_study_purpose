@@ -1,6 +1,7 @@
 
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { NormalTable } from '../../../Components/Table/NormalTable';
 import { NormalTableProps } from '../../../Components/Table/NormalTable';
@@ -39,8 +40,9 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
             component: (data: any) => {
                 return <ActionComponent actions={
                     [
-                        { name: "Edit", icon: <ModeEditIcon />, onClick: () => selectFriend(data, "edit") },
-                        { name: "Select", icon: <PersonAddAlt1Icon />, onClick: () => selectFriend(data, "select") }
+                        { name: "Edit", icon: <ModeEditIcon />, onClick: () => selectFriend(data.row, "edit") },
+                        { name: "Select", icon: <PersonAddAlt1Icon />, onClick: () => selectFriend(data.row, "select") },
+                        { name: "Delete", icon: <DeleteIcon color='error' />, onClick: () => selectFriend(data.row, "delete") }
                     ]
                 } />
             },

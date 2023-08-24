@@ -5,12 +5,7 @@ import { formValues } from '../Config/Constants';
 
 export const AddFriendForm = ({ onSubmit = (data) => { }, initialData = {} }) => {
     const addFriendRef = useRef(null);
-    const [initialValues, setInitialValues] = useState({
-        email: "",
-        name: "",
-        password: "",
-        mobileNo: "",
-    });
+    const [initialValues, setInitialValues] = useState({});
 
     useEffect(() => {
         if (Object.keys(initialData).length > 0) {

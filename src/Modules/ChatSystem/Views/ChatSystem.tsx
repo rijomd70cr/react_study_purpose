@@ -10,7 +10,7 @@ import { FormSelectBox } from '../../../Components/FormElements/FormSelectBox';
 import { AddFriendForm } from '../Components/AddFriendForm';
 import { FriendList } from '../Components/FriendList';
 
-import { insertFriend, getChatSystemState, friendList, changeDB } from '../Reducer/chatActions';
+import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend } from '../Reducer/chatActions';
 import { actions } from '../Config/Constants';
 
 import { useAppDispatch, useAppSelector } from "../../../Services/Hook/Hook";
@@ -18,15 +18,20 @@ import { useAppDispatch, useAppSelector } from "../../../Services/Hook/Hook";
 type ChatSystemProps = {}
 const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
 
-const ChatSystem: React.FC<ChatSystemProps> = () => {
+const user = {
+    email: "",
+    name: "",
+    password: "",
+    mobileNo: "",
+};
 
+const ChatSystem: React.FC<ChatSystemProps> = () => {
     const dispatch = useAppDispatch();
     const chatState = useAppSelector(getChatSystemState);
 
     const [openModal, setOpenModal] = useState('');
     const [DBValue, setDBValue] = useState('');
-    const [initialData, setInitialData] = useState({});
-
+    const [initialData, setInitialData] = useState(user);
 
     useEffect(() => {
         dispatch(friendList({}));
@@ -41,6 +46,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     const handleSaveForm = (data: any) => {
         dispatch(insertFriend(data));
         setOpenModal('');
+        setInitialData(user);
     }
 
     const onClickSpeedDial = (name: String) => {
@@ -61,9 +67,12 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     }
 
     const selectFriend = (data: any, type: string) => {
-        console.log(data, "data")
         if (type === "select") {
 
+        }
+        else if (type === "delete") {
+            console.log(data, "data")
+            // dispatch(deleteFriend({ email: data.email }));
         }
         else {
             setInitialData(data);
