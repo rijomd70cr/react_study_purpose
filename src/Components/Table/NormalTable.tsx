@@ -39,23 +39,22 @@ type headersInterface = {
   FilterComponent: any;
   width: string;
 };
-type Props = {
+export type NormalTableProps = {
   headers: any[];
   headerStyle: { [x: string]: string };
   tableData: any[];
-  extraColumn: any[];
-  changeColumnData: any[];
-  pagination: boolean;
-  footerStyle: { [x: string]: string };
+  extraColumn?: any[];
+  changeColumnData?: any[];
+  pagination?: boolean;
+  footerStyle?: { [x: string]: string };
   sortBy: string;
-  onRowClick: any;
-  onRowSelected: boolean;
-  onChangeRowSelected: (data: any[]) => void;
-  onRowCollapsable: boolean;
+  onRowClick?: any;
+  onRowSelected?: boolean;
+  onChangeRowSelected?: (data: any[]) => void;
+  onRowCollapsable?: boolean;
 };
 
-export const NormalTable = ({
-  headers = [],
+export const NormalTable: React.FC<NormalTableProps> = ({ headers = [],
   headerStyle,
   tableData,
   extraColumn = [],
@@ -65,9 +64,8 @@ export const NormalTable = ({
   onRowClick,
   sortBy,
   onRowSelected = false,
-  onChangeRowSelected = () => {},
-  onRowCollapsable = false,
-}: Props) => {
+  onChangeRowSelected = () => { },
+  onRowCollapsable = false, }) => {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: headerStyle.backgroundColor,
@@ -100,7 +98,7 @@ export const NormalTable = ({
       let newArray: any[] = changDataContent(tableData, changeColumnData);
       setNormalTableData(newArray);
     }
-    return () => {};
+    return () => { };
   }, [changeColumnData, tableData]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -223,13 +221,12 @@ export const NormalTable = ({
       let keyValues = Object.keys(columnItem);
 
       let subTableData: any[] = [];
-      let columnField: string = "";
+      let columnField: string = "Sample";
       for (let item of keyValues) {
         if (typeof columnItem[item] === "object") {
           let itemData = columnItem[item].some((value: any) => {
             if (typeof value === "object") {
               columnField = item;
-              return typeof value === "object";
             }
           });
           if (itemData) subTableData = columnItem[item];
@@ -324,7 +321,7 @@ export const NormalTable = ({
               {renderTableHead()}
               {extraColumn?.length > 0 &&
                 extraColumn.map((item: any, key: number) => (
-                  <StyledTableCell key={key}  style={item.style}>
+                  <StyledTableCell key={key} style={item.style}>
                     {item.headerName ? (
                       capitalizingData(item.headerName)
                     ) : (
@@ -351,7 +348,7 @@ export const NormalTable = ({
                     onClick={
                       typeof onRowClick === "function"
                         ? () => onRowClick(columnItem)
-                        : () => {}
+                        : () => { }
                     }
                     selected={isItemSelected}
                   >
@@ -403,8 +400,8 @@ export const NormalTable = ({
                           <TableCell key={headerKey} style={{ lineHeight: 0 }}>
                             {typeof headerItem.renderDataContent === "function"
                               ? headerItem.renderDataContent(
-                                  columnItem[headerItem.name]
-                                )
+                                columnItem[headerItem.name]
+                              )
                               : value}
                           </TableCell>
                         );
@@ -414,13 +411,9 @@ export const NormalTable = ({
                     {extraColumn?.length > 0 &&
                       extraColumn.map((item: any, key: number) => (
                         <TableCell key={key}>
-                          {item.content ? (
-                            <div onClick={() => item.onClick(columnItem)}>
-                              {item.content}
-                            </div>
-                          ) : (
-                            <div>-</div>
-                          )}
+                          {item.content ?
+                            <div onClick={() => item.onClick(columnItem)}>{item.content}</div>
+                            : <div>{item?.component({ row: columnItem })}</div>}
                         </TableCell>
                       ))}
                   </TableRow>

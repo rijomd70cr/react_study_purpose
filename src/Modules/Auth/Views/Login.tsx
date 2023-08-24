@@ -42,23 +42,27 @@ const Login = () => {
   useEffect(() => {
     (async () => {
       if (loginRequest?.fetchedData) {
-        let fetchedData: any = loginRequest?.fetchedData;
-        if (Object.keys(fetchedData).length !== 0) {
-          let data = {
-            access_token: fetchedData?.data?.token,
-            user: fetchedData?.data?.user,
-          };
-          setLoading(false);
-          setOpenAlert(true);
-          setAlertMessege(fetchedData.message);
-          if (fetchedData.status_code === 200) {
-            setTypeOfAlert("success");
-            dispatch(loginAction(data, true));
-            navigate("/");
-            window.location.reload();
-          } else {
-            setTypeOfAlert("error");
+        try {
+          let fetchedData: any = loginRequest?.fetchedData;
+          if (Object.keys(fetchedData).length !== 0) {
+            let data = {
+              access_token: fetchedData?.data?.token,
+              user: fetchedData?.data?.user,
+            };
+            if (fetchedData.status_code === 200) {
+              setTypeOfAlert("success");
+              dispatch(loginAction(data, true));
+              navigate("/");
+              window.location.reload();
+            } else {
+              setTypeOfAlert("error");
+            }
+            setLoading(false);
+            setOpenAlert(true);
+            setAlertMessege(fetchedData.message);
           }
+        } catch (error) {
+          console.log(error, "error")
         }
       }
     })();
