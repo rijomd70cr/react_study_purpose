@@ -3,7 +3,7 @@ import './app.css';
 
 function App() {
   return (
-    <div style={{ minHeight: "90vh", backgroundColor: "#f0f1f9" }}>
+    <div style={{ minHeight: "90vh" }}>
       <GeneralRoutes />
     </div>
   );

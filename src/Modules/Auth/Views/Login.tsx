@@ -12,7 +12,7 @@ import { getRequestHeaders } from "../../../Services/Methods/Authmethods";
 import { loginAction } from "../../../Modules/Auth/Reducer/AuthAction";
 
 const Login = () => {
-  const [login, setlogin] = useState({ username: "", password: "" });
+  const [login, setlogin] = useState({ email: "", password: "" });
   const [isLoading, setLoading] = useState(false);
   const [isopenAlert, setOpenAlert] = useState(false);
   const [typeOfAlert, setTypeOfAlert] = useState("");
@@ -51,7 +51,7 @@ const Login = () => {
           setLoading(false);
           setOpenAlert(true);
           setAlertMessege(fetchedData.message);
-          if (fetchedData.error_code === 200) {
+          if (fetchedData.status_code === 200) {
             setTypeOfAlert("success");
             dispatch(loginAction(data, true));
             navigate("/");
@@ -98,14 +98,14 @@ const Login = () => {
             <TextInput
               label="User Name"
               placeholder="Email"
-              name="username"
+              name="email"
               type="email"
               onKeyPress={() => { }}
               fullWidth={false}
               onChange={(e) => handleChange(e.target.name, e.target.value)}
               required={true}
               error={{ isError: false, errorMsg: "" }}
-              value={login.username}
+              value={login.email}
             />
           </Grid>
           <Grid item xs={12} sx={{ mt: "8px" }}>

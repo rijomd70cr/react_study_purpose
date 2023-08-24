@@ -1,6 +1,5 @@
 import React, { lazy, Suspense, FC, useMemo } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { Grid } from "@mui/material";
 
 import { Loader } from "../../Components/Loader/Loader";
 
