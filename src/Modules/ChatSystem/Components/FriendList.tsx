@@ -2,6 +2,7 @@
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import DeleteIcon from '@mui/icons-material/Delete';
+import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
 
 import { NormalTable } from '../../../Components/Table/NormalTable';
 import { NormalTableProps } from '../../../Components/Table/NormalTable';
@@ -11,7 +12,7 @@ import { ActionComponent } from '../../../Components/Table/NormalTableComponent/
 
 type FriendListProps = {
     dataArray: any[],
-    selectFriend: (data: any, type: string) => void
+    selectFriend: (data: any, type: string | undefined) => void
 }
 
 export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFriend = () => { } }) => {
@@ -33,7 +34,34 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
             headerName: "Mobile No",
             isFilterEnabled: false,
         },
+        {
+            name: "requestStatus",
+            headerName: "Request Status",
+            isFilterEnabled: false,
+        },
     ];
+
+    const getName = (data: any) => {
+        if (data?.requestStatus) {
+            if (data?.requestStatus === "Requested") return "Un Friend";
+            if (data?.requestStatus === "Rejected") return "Send Request";
+            if (data?.requestStatus === "Accepted") return "Un Friend";
+        }
+        else {
+            return "Send Request";
+        }
+    }
+
+    const getIcon = (data: any) => {
+        if (data?.requestStatus) {
+            if (data?.requestStatus === "Requested") return <PersonAddDisabledIcon style={{ fontSize: "16px" }} />;
+            if (data?.requestStatus === "Rejected") return <PersonAddAlt1Icon style={{ fontSize: "16px" }} />;
+            if (data?.requestStatus === "Accepted") return <PersonAddDisabledIcon style={{ fontSize: "16px" }} />;
+        }
+        else {
+            return <PersonAddAlt1Icon style={{ fontSize: "16px" }} />;
+        }
+    }
 
     const extraColumn = [
         {
@@ -42,7 +70,11 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
                 return <ActionComponent actions={
                     [
                         { name: "Edit", icon: <ModeEditIcon style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "edit") },
-                        { name: "Select", icon: <PersonAddAlt1Icon style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "select") },
+                        {
+                            name: getName(data),
+                            icon: getIcon(data),
+                            onClick: () => selectFriend(data.row, getName(data))
+                        },
                         { name: "Delete", icon: <DeleteIcon color='error' style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "delete") }
                     ]
                 } />
@@ -62,7 +94,7 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
     };
 
     return (
-        <div style={{ margin: "1rem" ,marginTop:0 }}>
+        <div style={{ margin: "1rem", marginTop: 0 }}>
             <PageLayout title="Friend List" actions={[]} >
                 <NormalTable
                     {...propsForMyComponent}

@@ -9,7 +9,7 @@ import { HeaderText } from "../../../Components/HeaderText";
 import { AddFriendForm } from '../Components/AddFriendForm';
 import { FriendList } from '../Components/FriendList';
 
-import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend } from '../Reducer/chatActions';
+import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend, requestFriend } from '../Reducer/chatActions';
 import { actions } from '../Config/Constants';
 
 import { useAppDispatch, useAppSelector } from "../../../Services/Hook/Hook";
@@ -60,9 +60,13 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
         dispatch(changeDB({ dbName: data }));
     }
 
-    const selectFriend = (data: any, type: string) => {
-        if (type === "select") {
-
+    const selectFriend = (data: any, type: string | undefined) => {
+        if (type === "Send Request") {
+            const payload = { recieverID: data._id }
+            dispatch(requestFriend(payload));
+        }
+        else if (type === "Un Friend") {
+            dispatch(deleteFriend({ email: data.email }));
         }
         else if (type === "delete") {
             dispatch(deleteFriend({ email: data.email }));

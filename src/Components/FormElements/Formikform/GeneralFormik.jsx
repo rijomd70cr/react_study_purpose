@@ -59,111 +59,116 @@ export const Form = forwardRef(
               <form>
                 <Grid container spacing={2}>
                   {formValues.map((item, key) => {
-                    if (item?.type === "fileUpload") {
-                      return (
-                        <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
-                          <FileInput
-                            label={item.label}
-                            onChange={(e) => { handleChange(e); }}
-                            value={values?.[item.name]}
-                            name={item.name}
-                            error={{
-                              isError: errors[item.name] && touched[item.name],
-                              errorMsg: errors[item.name],
-                            }}
-                            type={item?.type}
-                            fullWidth={true}
-                          />
-                        </Grid>
-                      );
+                    if (item?.type === "hideColumn") {
+                      return <></>
                     }
-                    if (item?.type === "text" || item?.type === "number") {
-                      return (
-                        <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
-                          <TextInput
-                            label={item.label}
-                            onChange={(e) => {
-                              handleChange(e);
-                            }}
-                            value={values?.[item.name]}
-                            name={item.name}
-                            error={{
-                              isError: errors[item.name] && touched[item.name],
-                              errorMsg: errors[item.name],
-                            }}
-                            type={item?.type}
-                            fullWidth={true}
-                          />
-                        </Grid>
-                      );
-                    }
-                    if (item?.type === "autoCompleteSelect") {
-                      return (
-                        <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
-                          <FormAutoComplete
-                            options={item?.autoCompleteCompo}
-                            label={item.label}
-                            disabled={item?.disabled ? item.disabled : false}
-                            onChange={(e) => {
-                              setFieldValue(item.name, e);
-                            }}
-                            value={values?.[item.name]}
-                            name={item.name}
-                            multiple={item.multiple ? true : false}
-                            fullWidth={true}
-                          />
-                        </Grid>
-                      );
-                    }
-                    if (item?.type === "date") {
-                      let minDate = null;
-                      let maxDate = null;
-                      if (item.minDate && typeof item.minDate === "string") {
-                        minDate = values[item.minDate];
+                    else {
+                      if (item?.type === "fileUpload") {
+                        return (
+                          <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
+                            <FileInput
+                              label={item.label}
+                              onChange={(e) => { handleChange(e); }}
+                              value={values?.[item.name]}
+                              name={item.name}
+                              error={{
+                                isError: errors[item.name] && touched[item.name],
+                                errorMsg: errors[item.name],
+                              }}
+                              type={item?.type}
+                              fullWidth={true}
+                            />
+                          </Grid>
+                        );
                       }
-                      if (item.maxDate && typeof item.maxDate === "string") {
-                        maxDate = values[item.maxDate];
+                      if (item?.type === "text" || item?.type === "number") {
+                        return (
+                          <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
+                            <TextInput
+                              label={item.label}
+                              onChange={(e) => {
+                                handleChange(e);
+                              }}
+                              value={values?.[item.name]}
+                              name={item.name}
+                              error={{
+                                isError: errors[item.name] && touched[item.name],
+                                errorMsg: errors[item.name],
+                              }}
+                              type={item?.type}
+                              fullWidth={true}
+                            />
+                          </Grid>
+                        );
                       }
-                      return (
-                        <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
-                          <FormDatePicker
-                            label={item.label}
-                            disabled={item?.disabled ? item.disabled : false}
-                            onChange={(e) => {
-                              setFieldValue(item.name, e?.toDate() || null);
-                            }}
-                            error={{
-                              isError: errors[item.name] && touched[item.name],
-                              errorMsg: errors[item.name],
-                            }}
-                            value={values?.[item.name]}
-                            name={item.name}
-                            minDate={minDate === null ? item.minDate : minDate}
-                            maxDate={maxDate === null ? item.maxDate : maxDate}
-                            fullWidth={true}
-                            onKeyDown={
-                              item?.handleTextDisable
-                                ? (e) => e.preventDefault()
-                                : () => { }
-                            }
-                          />
-                        </Grid>
-                      );
-                    }
-                    if (item?.type === "component") {
-                      return (
-                        <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
-                          {item.component({
-                            value: values[item.name],
-                            onChangeData: (data) =>
-                              setFieldValue(item.name, data || null),
-                            error: {
-                              isError: errors[item.name] && touched[item.name],
-                              errorMsg: errors[item.name],
-                            },
-                          })}
-                        </Grid>
-                      );
+                      if (item?.type === "autoCompleteSelect") {
+                        return (
+                          <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
+                            <FormAutoComplete
+                              options={item?.autoCompleteCompo}
+                              label={item.label}
+                              disabled={item?.disabled ? item.disabled : false}
+                              onChange={(e) => {
+                                setFieldValue(item.name, e);
+                              }}
+                              value={values?.[item.name]}
+                              name={item.name}
+                              multiple={item.multiple ? true : false}
+                              fullWidth={true}
+                            />
+                          </Grid>
+                        );
+                      }
+                      if (item?.type === "date") {
+                        let minDate = null;
+                        let maxDate = null;
+                        if (item.minDate && typeof item.minDate === "string") {
+                          minDate = values[item.minDate];
+                        }
+                        if (item.maxDate && typeof item.maxDate === "string") {
+                          maxDate = values[item.maxDate];
+                        }
+                        return (
+                          <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
+                            <FormDatePicker
+                              label={item.label}
+                              disabled={item?.disabled ? item.disabled : false}
+                              onChange={(e) => {
+                                setFieldValue(item.name, e?.toDate() || null);
+                              }}
+                              error={{
+                                isError: errors[item.name] && touched[item.name],
+                                errorMsg: errors[item.name],
+                              }}
+                              value={values?.[item.name]}
+                              name={item.name}
+                              minDate={minDate === null ? item.minDate : minDate}
+                              maxDate={maxDate === null ? item.maxDate : maxDate}
+                              fullWidth={true}
+                              onKeyDown={
+                                item?.handleTextDisable
+                                  ? (e) => e.preventDefault()
+                                  : () => { }
+                              }
+                            />
+                          </Grid>
+                        );
+                      }
+                      if (item?.type === "component") {
+                        return (
+                          <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
+                            {item.component({
+                              value: values[item.name],
+                              onChangeData: (data) =>
+                                setFieldValue(item.name, data || null),
+                              error: {
+                                isError: errors[item.name] && touched[item.name],
+                                errorMsg: errors[item.name],
+                              },
+                            })}
+                          </Grid>
+                        );
+                      }
                     }
                   })}
                   <Grid item md={4} xs={6} sm={6} lg={3}>
