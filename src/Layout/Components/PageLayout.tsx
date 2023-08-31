@@ -36,7 +36,7 @@ export const PageLayout: React.FC<Props> = ({ title, children, actions, customMe
 
   return (
     <Box sx={styles.layout}>
-      <Grid container sx={{ ...styles.container, borderBottom: "1px solid #ccc", padding: "4px" }}>
+      <Grid container sx={{ ...styles.container, borderBottom: "1px solid #ccc", padding: "6px" }}>
         <Grid item md={6} xs={12}>
           <HeaderText title={title} />
         </Grid>
@@ -61,7 +61,7 @@ export const PageLayout: React.FC<Props> = ({ title, children, actions, customMe
           {customMenu}
         </Grid>
       </Grid>
-      <Grid container sx={styles.container}>
+      <Grid container sx={{ ...styles.container, paddingTop: "8px" }}>
         <Grid item lg={12} md={12} xs={12}>
           {children}
         </Grid>
