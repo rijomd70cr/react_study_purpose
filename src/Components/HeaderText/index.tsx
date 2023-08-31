@@ -1,11 +1,14 @@
 import { Typography } from '@mui/material';
 
-type Props = { title: string }
+type Props = {
+    title: string,
+    style?: React.CSSProperties
+}
 export const HeaderText = (props: Props) => {
-    const { title: title } = props;
+    const { title, style } = props;
     return (
         <div>
-            <Typography variant="subtitle2" gutterBottom sx={{ fontSize: "18px",fontWeight:"bold" }} >{title}</Typography>
+            <Typography variant="subtitle2" gutterBottom sx={{ fontSize: "14px", fontWeight: "bold", ...style }} >{title}</Typography>
         </div>
     )
 }

@@ -63,9 +63,9 @@ export const Form = forwardRef(
                       return (
                         <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
                           <FileInput
-                            label={item.name ? capitalizingData(item.name) : "Label"}
+                            label={item.label}
                             onChange={(e) => { handleChange(e); }}
-                            value={values[item.name]}
+                            value={values?.[item.name]}
                             name={item.name}
                             error={{
                               isError: errors[item.name] && touched[item.name],
@@ -81,13 +81,11 @@ export const Form = forwardRef(
                       return (
                         <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
                           <TextInput
-                            label={
-                              item.name ? capitalizingData(item.name) : "Label"
-                            }
+                            label={item.label}
                             onChange={(e) => {
                               handleChange(e);
                             }}
-                            value={values[item.name]}
+                            value={values?.[item.name]}
                             name={item.name}
                             error={{
                               isError: errors[item.name] && touched[item.name],
@@ -104,14 +102,12 @@ export const Form = forwardRef(
                         <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
                           <FormAutoComplete
                             options={item?.autoCompleteCompo}
-                            label={
-                              item.name ? capitalizingData(item.name) : "Label"
-                            }
+                            label={item.label}
                             disabled={item?.disabled ? item.disabled : false}
                             onChange={(e) => {
                               setFieldValue(item.name, e);
                             }}
-                            value={values[item.name]}
+                            value={values?.[item.name]}
                             name={item.name}
                             multiple={item.multiple ? true : false}
                             fullWidth={true}
@@ -131,9 +127,7 @@ export const Form = forwardRef(
                       return (
                         <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
                           <FormDatePicker
-                            label={
-                              item.name ? capitalizingData(item.name) : "Label"
-                            }
+                            label={item.label}
                             disabled={item?.disabled ? item.disabled : false}
                             onChange={(e) => {
                               setFieldValue(item.name, e?.toDate() || null);
@@ -142,7 +136,7 @@ export const Form = forwardRef(
                               isError: errors[item.name] && touched[item.name],
                               errorMsg: errors[item.name],
                             }}
-                            value={values[item.name]}
+                            value={values?.[item.name]}
                             name={item.name}
                             minDate={minDate === null ? item.minDate : minDate}
                             maxDate={maxDate === null ? item.maxDate : maxDate}

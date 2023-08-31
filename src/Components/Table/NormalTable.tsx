@@ -73,7 +73,7 @@ export const NormalTable: React.FC<NormalTableProps> = ({ headers = [],
       ...headerStyle,
     },
     [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
+      fontSize: 12,
     },
   }));
   const footer = { ...footerStyle, borderBottom: "1px solid #ccc" };
@@ -183,7 +183,6 @@ export const NormalTable: React.FC<NormalTableProps> = ({ headers = [],
       return (
         <StyledTableCell key={key} style={{ ...item?.style }}>
           <TableSortLabel
-            style={{ fontSize: "16px" }}
             active={orderBy === item.name}
             direction={orderBy === item.name ? order : "asc"}
             onClick={() => handleRequestSort(item.name)}
@@ -245,7 +244,6 @@ export const NormalTable: React.FC<NormalTableProps> = ({ headers = [],
                 <TableCell
                   style={{
                     fontWeight: "bold",
-                    fontSize: "16px",
                     border: "none",
                   }}
                 >
@@ -395,7 +393,7 @@ export const NormalTable: React.FC<NormalTableProps> = ({ headers = [],
                           value = columnItem[headerItem.name];
                         }
                         return (
-                          <TableCell key={headerKey} style={{ lineHeight: 0 }}>
+                          <TableCell key={headerKey} style={{ lineHeight: 0, fontSize: "12px" }}>
                             {typeof headerItem.renderDataContent === "function"
                               ? headerItem.renderDataContent(
                                 columnItem[headerItem.name]

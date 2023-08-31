@@ -5,7 +5,7 @@ interface TextInterface {
   label: string;
   placeholder: string;
   error: { isError: boolean; errorMsg: string };
-  value: String | number;
+  value: String | number | string;
   onChange: (data: any) => void;
   onKeyPress: () => void;
   required: boolean;

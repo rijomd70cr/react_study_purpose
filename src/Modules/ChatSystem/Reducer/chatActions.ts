@@ -45,7 +45,7 @@ export const changeDB = createAsyncThunk('chatSystem/friendList',
 export const deleteFriend = createAsyncThunk('chatSystem/deleteFriend',
     async (body: any, thunkAPI) => {
         try {
-            const response = await axios.delete<any>(deleteFriendApi, body);
+            const response = await axios.delete<any>(deleteFriendApi, { data: body });
             return response.data
         } catch (error) {
             thunkAPI.rejectWithValue("error");

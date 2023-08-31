@@ -1,16 +1,17 @@
 import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export const actions = [
-    { icon: <FileCopyIcon />, name: 'FriendList', },
-    { icon: <SaveIcon />, name: 'Add Friend' },
-    { icon: <WorkHistoryIcon />, name: 'Change DB' }
+    { icon: <FileCopyIcon color='warning' />, name: 'FriendList', },
+    { icon: <AddCircleIcon color='success' />, name: 'Add Friend' },
+    { icon: <WorkHistoryIcon color='info' />, name: 'Change DB' }
 ];
 
 export const formValues = [
     {
         name: "email",
+        label: "Email",
         type: "text",
         disabled: false,
         validationType: "string",
@@ -27,6 +28,7 @@ export const formValues = [
     },
     {
         name: "name",
+        label: "Name",
         type: "text",
         validations: [
             {
@@ -37,6 +39,7 @@ export const formValues = [
     },
     {
         name: "mobileNo",
+        label: "MobileNo",
         type: "text",
         validations: [
             {
@@ -47,7 +50,9 @@ export const formValues = [
     },
     {
         name: "password",
+        label: "Password",
         type: "text",
+        disabled: false,
         validations: [
             {
                 type: "required",

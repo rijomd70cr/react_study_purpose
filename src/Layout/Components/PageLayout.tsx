@@ -17,7 +17,7 @@ interface Props {
   title: string;
   children: any;
   actions: typeAction[];
-  customMenu: any;
+  customMenu?: any;
   [x: string]: any
 };
 
@@ -60,7 +60,7 @@ export const PageLayout: React.FC<Props> = ({ title, children, actions, customMe
           {customMenu}
         </Grid>
       </Grid>
-      <hr style={{ border: "1px solid #f0f1f9" }}></hr>
+      <hr style={{ border: "1px solid #ccc" }}></hr>
       <Grid container sx={styles.container}>
         <Grid item lg={12} md={12} xs={12}>
           {children}

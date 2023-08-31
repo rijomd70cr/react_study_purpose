@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Button } from "@mui/material";
 
 import { PageLayout } from '../../../Layout/Components/PageLayout';
 import { SpeedDialMenu } from '../../../Components/Menu/SpeedialMenu';
-import { Modal } from '../../../Components/ModalBox'
 import { Drawers } from '../../../Components/Drawer/Drawers';
 import { FormSelectBox } from '../../../Components/FormElements/FormSelectBox';
+import { HeaderText } from "../../../Components/HeaderText";
 
 import { AddFriendForm } from '../Components/AddFriendForm';
 import { FriendList } from '../Components/FriendList';
@@ -38,11 +37,6 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
         return () => { }
     }, [chatState.reload])
 
-    const handleAction = () => {
-        const button = document.getElementById('add-friend-save');
-        if (button) { button?.click(); }
-    }
-
     const handleSaveForm = (data: any) => {
         dispatch(insertFriend(data));
         setOpenModal('');
@@ -71,8 +65,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
 
         }
         else if (type === "delete") {
-            console.log(data, "data")
-            // dispatch(deleteFriend({ email: data.email }));
+            dispatch(deleteFriend({ email: data.email }));
         }
         else {
             setInitialData(data);
@@ -82,31 +75,21 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
 
     return (
         <PageLayout title="Chat System" actions={[]} customMenu={<SpeedDialMenu actions={actions} onClick={onClickSpeedDial} />}>
+            <div>Contents</div>
             <div>
-                Contents
+                <Drawers isOpen={openModal === "insert"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
+                    <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />
+                </Drawers>
+                <Drawers isOpen={openModal === "list"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
+                    <FriendList dataArray={chatState.friendList} selectFriend={selectFriend} />
+                </Drawers>
+                <Drawers isOpen={openModal === "changeDB"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "20%" }}>
+                    <div style={{ margin: "1rem" }}>
+                        <HeaderText style={{ borderBottom: "1px solid #ccc", paddingTop: "8px", padding: "8px" }} title='Select DB' />
+                        <FormSelectBox onChange={handleChange} options={selectOptions} label="Select DB" value={DBValue} fullWidth={true} />
+                    </div>
+                </Drawers>
             </div>
-            <Modal
-                open={openModal === "insert" || openModal === "list"}
-                handleClose={() => setOpenModal('')}
-                title={openModal === "insert" ? "Add Friend" : "Friend List"}
-                fullScreen={false}
-                handleAction={() => { }}
-                draggable={false}
-                maxWidth="md"
-                ExtraActions={openModal === "insert" && <Button color="primary" onClick={() => handleAction()}>save</Button>}
-            >
-                <div>
-                    {openModal === "insert" && <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />}
-                    {openModal === "list" && <FriendList dataArray={chatState.friendList} selectFriend={selectFriend} />}
-                </div>
-            </Modal>
-
-            <Drawers isOpen={openModal === "changeDB"} anchor={"right"} onClose={(data) => setOpenModal('')}>
-                <div style={{ width: "90%", marginTop: "1rem", padding: "8px" }}>
-                    <p style={{ textAlign: "center" }}>Select DB</p>
-                    <FormSelectBox onChange={handleChange} options={selectOptions} label="Select DB" value={DBValue} fullWidth={true} />
-                </div>
-            </Drawers>
 
         </PageLayout>
     )

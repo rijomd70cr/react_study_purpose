@@ -7,10 +7,11 @@ type Props = {
     isOpen: boolean,
     anchor: Anchor,
     onClose: (data: boolean) => void,
-    children: string | JSX.Element | JSX.Element[]
+    children: string | JSX.Element | JSX.Element[],
+    style?: React.CSSProperties
 }
 
-export const Drawers = ({ isOpen, anchor, onClose = (data) => { }, children }: Props) => {
+export const Drawers = ({ isOpen, anchor, onClose = (data) => { }, children, style = {} }: Props) => {
 
     return (
         <div>
@@ -19,9 +20,7 @@ export const Drawers = ({ isOpen, anchor, onClose = (data) => { }, children }: P
                     anchor={anchor}
                     open={isOpen}
                     onClose={() => onClose(false)}
-                    PaperProps={{
-                        sx: { width: "20%" },
-                    }}
+                    PaperProps={{ sx: style }}
                 >
                     {children}
                 </Drawer>

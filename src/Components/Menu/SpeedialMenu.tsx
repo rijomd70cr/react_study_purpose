@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import SpeedDial, { SpeedDialProps } from '@mui/material/SpeedDial';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import SpeedDialAction from '@mui/material/SpeedDialAction';
-
+import { Box, SpeedDial } from '@mui/material';
+import { SpeedDialIcon, SpeedDialAction } from '@mui/material';
 
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
     position: 'absolute',
@@ -30,7 +27,7 @@ export const SpeedDialMenu: React.FC<Props> = ({ actions = [], onClick }) => {
             <StyledSpeedDial
                 ariaLabel="SpeedDial playground example"
                 hidden={false}
-                sx={{ '& .MuiFab-primary': { width: 40, height: 40, '& .MuiSpeedDialIcon-icon': { fontSize: 20 } }, position: "static", height: "40px" }}
+                sx={{ '& .MuiFab-primary': { width: 40, height: 40, '& .MuiSpeedDialIcon-icon': { fontSize: 20 }, borderRadius: "2%"  }, position: "static", height: "40px"}}
                 icon={<SpeedDialIcon />}
                 direction="left"
             >
@@ -40,6 +37,7 @@ export const SpeedDialMenu: React.FC<Props> = ({ actions = [], onClick }) => {
                         icon={action.icon}
                         tooltipTitle={action.name}
                         onClick={() => onClick(action.name)}
+                        sx={{ borderRadius: "2%" }}
                     />
                 ))}
             </StyledSpeedDial>
