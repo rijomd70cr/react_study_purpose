@@ -2,19 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "../../Services/Hook/Hook";
-import {
-  openSideBarAction,
-  setselectedIndexAction,
-} from "../Reducer/LayoutActions";
+import { openSideBarAction, setselectedIndexAction, } from "../Reducer/LayoutActions";
 
-import {
-  Box,
-  Collapse,
-  ListItemButton,
-  List,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { Box, Collapse, ListItemButton, List, ListItemIcon, ListItemText, } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 import { Menu } from "../../Services/Menus";
@@ -85,7 +75,7 @@ const SideBar = () => {
   };
 
   return (
-    <Box sx={{ width: "260px", background: "#fff", marginRight: "0.3rem" }}>
+    <Box sx={{ width: "260px", background: "#fff", borderRight: "1px solid #ccc" }}>
       {Menu.map((item, key) => {
         if (item.submenu.length > 0) {
           return renderNavigation(item, key, "submenu");

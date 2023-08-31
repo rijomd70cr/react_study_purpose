@@ -2,6 +2,7 @@ import React, { lazy, Suspense, FC, useMemo } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import { Loader } from "../../Components/Loader/Loader";
+import { Drawers } from '../../Components/Drawer/Drawers';
 
 import { useAppSelector } from "../../Services/Hook/Hook";
 import { getSideBarStatus } from "../../Layout/Reducer/LayoutActions";
@@ -65,16 +66,11 @@ export const GeneralRoutes = React.memo(() => {
   }, [window?.location?.pathname]);
 
   const sideBarMenu = useMemo(() => {
-    return isSideBarOpen ? <SideBar /> : <></>;
+    return isSideBarOpen && <SideBar />
   }, [isSideBarOpen]);
 
   const headerMenu = useMemo(() => {
-    return !window.location.pathname.includes("login" || "signup") &&
-      isAuthenticated ? (
-      <Header />
-    ) : (
-      <></>
-    );
+    return !window.location.pathname.includes("login" || "signup") && isAuthenticated && <Header />
   }, [isAuthenticated]);
 
   return (

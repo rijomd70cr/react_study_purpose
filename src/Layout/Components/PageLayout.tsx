@@ -29,13 +29,14 @@ export const PageLayout: React.FC<Props> = ({ title, children, actions, customMe
       margin: "0px",
       marginBottom: "0px",
       padding: "8px",
+      paddingTop: "0px"
     },
-    container: { height: "40px", width: "100%", alignItems: "center" },
+    container: { height: "auto", width: "100%", alignItems: "center" },
   };
 
   return (
     <Box sx={styles.layout}>
-      <Grid container sx={styles.container}>
+      <Grid container sx={{ ...styles.container, borderBottom: "1px solid #ccc", padding: "4px" }}>
         <Grid item md={6} xs={12}>
           <HeaderText title={title} />
         </Grid>
@@ -60,7 +61,6 @@ export const PageLayout: React.FC<Props> = ({ title, children, actions, customMe
           {customMenu}
         </Grid>
       </Grid>
-      <hr style={{ border: "1px solid #ccc" }}></hr>
       <Grid container sx={styles.container}>
         <Grid item lg={12} md={12} xs={12}>
           {children}

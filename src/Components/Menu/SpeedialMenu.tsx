@@ -27,7 +27,7 @@ export const SpeedDialMenu: React.FC<Props> = ({ actions = [], onClick }) => {
             <StyledSpeedDial
                 ariaLabel="SpeedDial playground example"
                 hidden={false}
-                sx={{ '& .MuiFab-primary': { width: 40, height: 40, '& .MuiSpeedDialIcon-icon': { fontSize: 20 }, borderRadius: "2%"  }, position: "static", height: "40px"}}
+                sx={{ '& .MuiFab-primary': { width: 30, height: 30, '& .MuiSpeedDialIcon-icon': { fontSize: 20 }, borderRadius: "2%" }, position: "static", height: "40px" }}
                 icon={<SpeedDialIcon />}
                 direction="left"
             >
@@ -37,7 +37,7 @@ export const SpeedDialMenu: React.FC<Props> = ({ actions = [], onClick }) => {
                         icon={action.icon}
                         tooltipTitle={action.name}
                         onClick={() => onClick(action.name)}
-                        sx={{ borderRadius: "2%" }}
+                        sx={{ borderRadius: "2%", width: 30, height: 30 }}
                     />
                 ))}
             </StyledSpeedDial>
