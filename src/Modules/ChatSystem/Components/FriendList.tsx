@@ -38,12 +38,18 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
             name: "requestStatus",
             headerName: "Request Status",
             isFilterEnabled: false,
+            renderDataContent: (data: any) => {
+                if (!data.requestStatus || data.requestStatus === "Cancelled") {
+                    return "No Action"
+                }
+                return data.requestStatus;
+            }
         },
     ];
 
     const getName = (data: any) => {
         if (data?.requestStatus) {
-            if (data?.requestStatus === "Requested") return "Un Friend";
+            if (data?.requestStatus === "Requested") return "Cancel Request";
             if (data?.requestStatus === "Rejected") return "Send Request";
             if (data?.requestStatus === "Accepted") return "Un Friend";
         }
@@ -71,8 +77,8 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
                     [
                         { name: "Edit", icon: <ModeEditIcon style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "edit") },
                         {
-                            name: getName(data),
-                            icon: getIcon(data),
+                            name: getName(data.row),
+                            icon: getIcon(data.row),
                             onClick: () => selectFriend(data.row, getName(data))
                         },
                         { name: "Delete", icon: <DeleteIcon color='error' style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "delete") }

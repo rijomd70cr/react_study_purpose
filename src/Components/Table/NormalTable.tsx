@@ -396,7 +396,7 @@ export const NormalTable: React.FC<NormalTableProps> = ({ headers = [],
                           <TableCell key={headerKey} style={{ lineHeight: 0, fontSize: "12px" }}>
                             {typeof headerItem.renderDataContent === "function"
                               ? headerItem.renderDataContent(
-                                columnItem[headerItem.name]
+                                columnItem
                               )
                               : value}
                           </TableCell>

@@ -68,6 +68,9 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
         else if (type === "Un Friend") {
             dispatch(deleteFriend({ email: data.email }));
         }
+        else if (type === "Cancel Request") {
+            dispatch(deleteFriend({ email: data.email }));
+        }
         else if (type === "delete") {
             dispatch(deleteFriend({ email: data.email }));
         }

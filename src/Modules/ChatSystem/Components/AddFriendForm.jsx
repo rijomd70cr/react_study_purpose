@@ -54,7 +54,7 @@ export const AddFriendForm = ({ onSubmit = (data) => { }, initialData = {} }) =>
         {
             name: "password",
             label: "Password",
-            type: initialData?._id ? "text" : "hideColumn",
+            type: initialData?._id ? "hideColumn" : "text",
             validations: [
                 {
                     type: "required",
