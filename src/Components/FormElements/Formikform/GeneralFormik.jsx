@@ -65,7 +65,7 @@ export const Form = forwardRef(
                     else {
                       if (item?.type === "fileUpload") {
                         return (
-                          <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
+                          <Grid item md={item.md || 4} xs={item.xs || 6} sm={6} lg={item.lg || 3} key={key}>
                             <FileInput
                               label={item.label}
                               onChange={(e) => { handleChange(e); }}
@@ -83,7 +83,7 @@ export const Form = forwardRef(
                       }
                       if (item?.type === "text" || item?.type === "number") {
                         return (
-                          <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
+                          <Grid item md={item.md || 4} xs={item.xs || 6} sm={6} lg={item.lg || 3} key={key}>
                             <TextInput
                               label={item.label}
                               onChange={(e) => {
@@ -103,7 +103,7 @@ export const Form = forwardRef(
                       }
                       if (item?.type === "autoCompleteSelect") {
                         return (
-                          <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
+                          <Grid item md={item.md || 4} xs={item.xs || 6} sm={6} lg={item.lg || 3} key={key}>
                             <FormAutoComplete
                               options={item?.autoCompleteCompo}
                               label={item.label}
@@ -129,7 +129,7 @@ export const Form = forwardRef(
                           maxDate = values[item.maxDate];
                         }
                         return (
-                          <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
+                          <Grid item md={item.md || 4} xs={item.xs || 6} sm={6} lg={item.lg || 3} key={key}>
                             <FormDatePicker
                               label={item.label}
                               disabled={item?.disabled ? item.disabled : false}
@@ -156,7 +156,7 @@ export const Form = forwardRef(
                       }
                       if (item?.type === "component") {
                         return (
-                          <Grid item md={4} xs={6} sm={6} lg={3} key={key}>
+                          <Grid item md={item.md || 4} xs={item.xs || 6} sm={6} lg={item.lg || 3} key={key}>
                             {item.component({
                               value: values[item.name],
                               onChangeData: (data) =>

@@ -1,18 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { insertFriend, friendList, deleteFriend } from '../Reducer/chatActions';
+import { insertFriend, friendList, deleteFriend, myRequest } from '../Reducer/chatActions';
 
 export interface chatState {
     isLoading: Boolean;
     isSuccess: string;
     friendList: any[];
     reload: number;
+    requests: any[];
 }
 
 const initialState: chatState = {
     isLoading: false,
     isSuccess: '',
     friendList: [],
-    reload: 0
+    reload: 0,
+    requests: [],
 };
 
 export const chatSystemSlice = createSlice({
@@ -63,6 +65,21 @@ export const chatSystemSlice = createSlice({
             state.isLoading = false;
             state.isSuccess = "failed";
         })
+
+        builder.addCase(myRequest.pending, (state) => {
+            state.isLoading = true;
+            state.isSuccess = '';
+        })
+        builder.addCase(myRequest.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isSuccess = 'success';
+            state.reload = state.reload + 1;
+        })
+        builder.addCase(myRequest.rejected, (state) => {
+            state.isLoading = false;
+            state.isSuccess = "failed";
+        })
+
 
     },
 });

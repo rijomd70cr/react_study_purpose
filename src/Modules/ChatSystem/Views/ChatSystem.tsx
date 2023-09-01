@@ -3,34 +3,38 @@ import { useState, useEffect } from 'react';
 import { PageLayout } from '../../../Layout/Components/PageLayout';
 import { SpeedDialMenu } from '../../../Components/Menu/SpeedialMenu';
 import { Drawers } from '../../../Components/Drawer/Drawers';
-import { FormSelectBox } from '../../../Components/FormElements/FormSelectBox';
-import { HeaderText } from "../../../Components/HeaderText";
+// import { FormSelectBox } from '../../../Components/FormElements/FormSelectBox';
+// import { HeaderText } from "../../../Components/HeaderText";
 
 import { AddFriendForm } from '../Components/AddFriendForm';
 import { FriendList } from '../Components/FriendList';
+import { FriendRequests } from '../Components/FriendRequests';
 
-import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend, requestFriend, cancelFriend } from '../Reducer/chatActions';
+import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend, requestFriend, cancelFriend, myRequest } from '../Reducer/chatActions';
 import { actions } from '../Config/Constants';
 
 import { useAppDispatch, useAppSelector } from "../../../Services/Hook/Hook";
 
 type ChatSystemProps = {}
-const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
-
-const user = {
-    email: "",
-    name: "",
-    password: "",
-    mobileNo: "",
-};
+const user = { email: "", name: "", password: "", mobileNo: "" };
 
 const ChatSystem: React.FC<ChatSystemProps> = () => {
     const dispatch = useAppDispatch();
     const chatState = useAppSelector(getChatSystemState);
 
     const [openModal, setOpenModal] = useState('');
-    const [DBValue, setDBValue] = useState('');
     const [initialData, setInitialData] = useState(user);
+
+    // const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
+    // const [DBValue, setDBValue] = useState('');
+    // const handleChange = (data: string) => {
+    //     setDBValue(data);
+    //     dispatch(changeDB({ dbName: data }));
+    // }
+    useEffect(() => {
+        dispatch(myRequest({}));
+        return () => { }
+    }, [])
 
     useEffect(() => {
         dispatch(friendList({}));
@@ -53,12 +57,12 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
         if (name === "Change DB") {
             setOpenModal("changeDB");
         }
+        if (name === "Friend Requests") {
+            setOpenModal("Requests");
+        }
     }
 
-    const handleChange = (data: string) => {
-        setDBValue(data);
-        dispatch(changeDB({ dbName: data }));
-    }
+
 
     const selectFriend = (data: any, type: string | undefined) => {
         if (type === "Send Request") {
@@ -81,16 +85,15 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
         <PageLayout title="Chat System" actions={[]} customMenu={<SpeedDialMenu actions={actions} onClick={onClickSpeedDial} />}>
             <div>Contents</div>
             <div>
-                <Drawers isOpen={openModal === "insert"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
-                    <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />
-                </Drawers>
-                <Drawers isOpen={openModal === "list"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
-                    <FriendList dataArray={chatState.friendList} selectFriend={selectFriend} />
-                </Drawers>
-                <Drawers isOpen={openModal === "changeDB"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "20%" }}>
+                <Drawers isOpen={openModal === "insert" || openModal === "list" || openModal === "changeDB"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
                     <div style={{ margin: "1rem" }}>
-                        <HeaderText style={{ borderBottom: "1px solid #ccc", paddingTop: "8px", padding: "8px" }} title='Select DB' />
-                        <FormSelectBox onChange={handleChange} options={selectOptions} label="Select DB" value={DBValue} fullWidth={true} />
+                        {openModal === "insert" && <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />}
+                        {openModal === "list" && <FriendList dataArray={chatState.friendList} selectFriend={selectFriend} />}
+                        {openModal === "list" && <FriendRequests requests={chatState.requests} />}
+                        {/* {openModal === "changeDB" && <div>
+                            <HeaderText style={{ borderBottom: "1px solid #ccc", paddingTop: "8px", padding: "8px" }} title='Select DB' />
+                            <FormSelectBox onChange={handleChange} options={selectOptions} label="Select DB" value={DBValue} fullWidth={true} />
+                        </div>} */}
                     </div>
                 </Drawers>
             </div>

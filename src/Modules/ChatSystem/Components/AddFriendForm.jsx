@@ -18,6 +18,7 @@ export const AddFriendForm = ({ onSubmit = (data) => { }, initialData = {} }) =>
             type: "text",
             disabled: initialData?._id,
             validationType: "string",
+            md: 6,
             validations: [
                 {
                     type: "required",
@@ -33,6 +34,7 @@ export const AddFriendForm = ({ onSubmit = (data) => { }, initialData = {} }) =>
             name: "name",
             label: "Name",
             type: "text",
+            md: 6,
             validations: [
                 {
                     type: "required",
@@ -44,6 +46,7 @@ export const AddFriendForm = ({ onSubmit = (data) => { }, initialData = {} }) =>
             name: "mobileNo",
             label: "MobileNo",
             type: "text",
+            md: 6,
             validations: [
                 {
                     type: "required",
@@ -54,6 +57,7 @@ export const AddFriendForm = ({ onSubmit = (data) => { }, initialData = {} }) =>
         {
             name: "password",
             label: "Password",
+            md: 6,
             type: initialData?._id ? "hideColumn" : "text",
             validations: [
                 {
@@ -65,15 +69,13 @@ export const AddFriendForm = ({ onSubmit = (data) => { }, initialData = {} }) =>
     ];
 
     return (
-        <div style={{ margin: "1rem", marginTop: 0 }}>
-            <PageLayout title="Add Freind" actions={actions} >
-                <Form
-                    formValues={formValues}
-                    initialValues={initialData}
-                    onSubmit={onSubmit}
-                    ref={addFriendRef}
-                />
-            </PageLayout>
-        </div >
+        <PageLayout title="Add Freind" actions={actions} >
+            <Form
+                formValues={formValues}
+                initialValues={initialData}
+                onSubmit={onSubmit}
+                ref={addFriendRef}
+            />
+        </PageLayout>
     )
 }

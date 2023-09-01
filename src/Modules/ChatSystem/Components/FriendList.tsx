@@ -101,12 +101,10 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
     };
 
     return (
-        <div style={{ margin: "1rem", marginTop: 0 }}>
-            <PageLayout title="Friend List" actions={[]} >
-                <NormalTable
-                    {...propsForMyComponent}
-                />
-            </PageLayout>
-        </div>
+        <PageLayout title="Friend List" actions={[]} >
+            <NormalTable
+                {...propsForMyComponent}
+            />
+        </PageLayout>
     )
 }
