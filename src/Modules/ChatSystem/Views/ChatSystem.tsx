@@ -9,7 +9,7 @@ import { HeaderText } from "../../../Components/HeaderText";
 import { AddFriendForm } from '../Components/AddFriendForm';
 import { FriendList } from '../Components/FriendList';
 
-import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend, requestFriend } from '../Reducer/chatActions';
+import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend, requestFriend, cancelFriend } from '../Reducer/chatActions';
 import { actions } from '../Config/Constants';
 
 import { useAppDispatch, useAppSelector } from "../../../Services/Hook/Hook";
@@ -65,11 +65,8 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
             const payload = { recieverID: data._id }
             dispatch(requestFriend(payload));
         }
-        else if (type === "Un Friend") {
-            dispatch(deleteFriend({ email: data.email }));
-        }
         else if (type === "Cancel Request") {
-            dispatch(deleteFriend({ email: data.email }));
+            dispatch(cancelFriend({ recieverID: data._id, status: "Cancelled", isModify: true }));
         }
         else if (type === "delete") {
             dispatch(deleteFriend({ email: data.email }));

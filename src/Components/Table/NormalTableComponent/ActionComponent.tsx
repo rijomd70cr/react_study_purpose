@@ -12,7 +12,7 @@ export const ActionComponent: React.FC<ActionComponentProps> = ({ actions = [] }
                 actions.map((item, key) => {
                     return <b key={key} onClick={() => item?.onClick()}
                         style={{ paddingRight: "1rem", color: "#1976d2", cursor: "pointer", ...item?.style }}>
-                        <Tooltip title={item?.name} arrow>
+                        <Tooltip title={item?.name || ""} arrow>
                             {item?.icon}
                         </Tooltip>
                     </b>

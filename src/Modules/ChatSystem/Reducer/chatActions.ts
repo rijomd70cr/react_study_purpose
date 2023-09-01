@@ -65,3 +65,39 @@ export const requestFriend = createAsyncThunk('chatSystem/deleteFriend',
 
     }
 )
+
+export const cancelFriend = createAsyncThunk('chatSystem/deleteFriend',
+    async (body: any, thunkAPI) => {
+        try {
+            const response = await axios.post<any>(requestFriendApi, { data: body });
+            return response.data
+        } catch (error) {
+            thunkAPI.rejectWithValue("error");
+        }
+
+    }
+)
+
+export const removeFriend = createAsyncThunk('chatSystem/deleteFriend',
+    async (body: any, thunkAPI) => {
+        try {
+            const response = await axios.post<any>(requestFriendApi, { data: body });
+            return response.data
+        } catch (error) {
+            thunkAPI.rejectWithValue("error");
+        }
+
+    }
+)
+
+export const acceptFriend = createAsyncThunk('chatSystem/deleteFriend',
+    async (body: any, thunkAPI) => {
+        try {
+            const response = await axios.post<any>(requestFriendApi, { data: body });
+            return response.data
+        } catch (error) {
+            thunkAPI.rejectWithValue("error");
+        }
+
+    }
+)

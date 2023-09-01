@@ -7,6 +7,8 @@ import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
 import { NormalTable } from '../../../Components/Table/NormalTable';
 import { NormalTableProps } from '../../../Components/Table/NormalTable';
 import { PageLayout } from '../../../Layout/Components/PageLayout';
+import { StatusComponents } from '../../../Components/UtilsComponents/HelperComponents';
+
 
 import { ActionComponent } from '../../../Components/Table/NormalTableComponent/ActionComponent';
 
@@ -16,7 +18,6 @@ type FriendListProps = {
 }
 
 export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFriend = () => { } }) => {
-
     const headStyle = { backgroundColor: "#e5f3f5", color: "black", textAlign: "start", height: "25px", fontSize: "10px" };
     const headers = [
         {
@@ -40,9 +41,9 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
             isFilterEnabled: false,
             renderDataContent: (data: any) => {
                 if (!data.requestStatus || data.requestStatus === "Cancelled") {
-                    return "No Action"
+                    return <div> - </div>
                 }
-                return data.requestStatus;
+                return <StatusComponents data={data.requestStatus} />
             }
         },
     ];
@@ -50,7 +51,7 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
     const getName = (data: any) => {
         if (data?.requestStatus) {
             if (data?.requestStatus === "Requested") return "Cancel Request";
-            if (data?.requestStatus === "Rejected") return "Send Request";
+            if (data?.requestStatus === "Rejected" || data?.requestStatus === "Cancelled") return "Send Request";
             if (data?.requestStatus === "Accepted") return "Un Friend";
         }
         else {
@@ -61,7 +62,7 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
     const getIcon = (data: any) => {
         if (data?.requestStatus) {
             if (data?.requestStatus === "Requested") return <PersonAddDisabledIcon style={{ fontSize: "16px" }} />;
-            if (data?.requestStatus === "Rejected") return <PersonAddAlt1Icon style={{ fontSize: "16px" }} />;
+            if (data?.requestStatus === "Rejected" || data?.requestStatus === "Cancelled") return <PersonAddAlt1Icon style={{ fontSize: "16px" }} />;
             if (data?.requestStatus === "Accepted") return <PersonAddDisabledIcon style={{ fontSize: "16px" }} />;
         }
         else {
@@ -79,7 +80,7 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
                         {
                             name: getName(data.row),
                             icon: getIcon(data.row),
-                            onClick: () => selectFriend(data.row, getName(data))
+                            onClick: () => selectFriend(data.row, getName(data.row))
                         },
                         { name: "Delete", icon: <DeleteIcon color='error' style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "delete") }
                     ]
