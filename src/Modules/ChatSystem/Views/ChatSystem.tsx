@@ -31,10 +31,10 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     //     setDBValue(data);
     //     dispatch(changeDB({ dbName: data }));
     // }
-    useEffect(() => {
-        dispatch(myRequest({}));
-        return () => { }
-    }, [])
+    // useEffect(() => {
+    //     dispatch(myRequest({}));
+    //     return () => { }
+    // }, [])
 
     useEffect(() => {
         dispatch(friendList({}));
@@ -89,7 +89,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
                     <div style={{ margin: "1rem" }}>
                         {openModal === "insert" && <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />}
                         {openModal === "list" && <FriendList dataArray={chatState.friendList} selectFriend={selectFriend} />}
-                        {openModal === "list" && <FriendRequests requests={chatState.requests} />}
+                        {openModal === "Requests" && <FriendRequests requests={chatState.requests} />}
                         {/* {openModal === "changeDB" && <div>
                             <HeaderText style={{ borderBottom: "1px solid #ccc", paddingTop: "8px", padding: "8px" }} title='Select DB' />
                             <FormSelectBox onChange={handleChange} options={selectOptions} label="Select DB" value={DBValue} fullWidth={true} />
@@ -102,3 +102,6 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     )
 }
 export default ChatSystem;
+
+
+
