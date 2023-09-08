@@ -6,7 +6,7 @@ export interface chatState {
     isSuccess: string;
     friendList: any[];
     reload: number;
-    requests: any[];
+    myRequestList: any[];
 }
 
 const initialState: chatState = {
@@ -14,7 +14,7 @@ const initialState: chatState = {
     isSuccess: '',
     friendList: [],
     reload: 0,
-    requests: [],
+    myRequestList: []
 };
 
 export const chatSystemSlice = createSlice({
@@ -70,16 +70,16 @@ export const chatSystemSlice = createSlice({
             state.isLoading = true;
             state.isSuccess = '';
         })
-        builder.addCase(myRequest.fulfilled, (state, action) => {
+        builder.addCase(myRequest.fulfilled, (state, { payload }) => {
             state.isLoading = false;
             state.isSuccess = 'success';
+            state.myRequestList = payload.data.requestList;
             state.reload = state.reload + 1;
         })
         builder.addCase(myRequest.rejected, (state) => {
             state.isLoading = false;
             state.isSuccess = "failed";
         })
-
 
     },
 });

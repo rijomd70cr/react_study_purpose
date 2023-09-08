@@ -1,11 +1,16 @@
+import { PageLayout } from '../../../Layout/Components/PageLayout';
 
 type FriendRequestsProps = {
-    requests: any[]
+    myRequestList: any[]
 }
 
-export const FriendRequests: React.FC<FriendRequestsProps> = ({ requests }) => {
+export const FriendRequests: React.FC<FriendRequestsProps> = ({ myRequestList }) => {
+    console.log(myRequestList, "myRequestList");
+
     return (
-        <div>FriendRequests</div>
+        <PageLayout title="Friend Requests" actions={[]} >
+
+        </PageLayout>
     )
 }
 

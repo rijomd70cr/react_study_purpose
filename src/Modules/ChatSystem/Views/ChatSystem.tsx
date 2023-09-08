@@ -31,10 +31,11 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     //     setDBValue(data);
     //     dispatch(changeDB({ dbName: data }));
     // }
-    // useEffect(() => {
-    //     dispatch(myRequest({}));
-    //     return () => { }
-    // }, [])
+
+    useEffect(() => {
+        dispatch(myRequest({}));
+        return () => { }
+    }, [])
 
     useEffect(() => {
         dispatch(friendList({}));
@@ -62,8 +63,6 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
         }
     }
 
-
-
     const selectFriend = (data: any, type: string | undefined) => {
         if (type === "Send Request") {
             const payload = { recieverID: data._id }
@@ -85,11 +84,11 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
         <PageLayout title="Chat System" actions={[]} customMenu={<SpeedDialMenu actions={actions} onClick={onClickSpeedDial} />}>
             <div>Contents</div>
             <div>
-                <Drawers isOpen={openModal === "insert" || openModal === "list" || openModal === "changeDB"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
+                <Drawers isOpen={openModal === "insert" || openModal === "list" || openModal === "Requests"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
                     <div style={{ margin: "1rem" }}>
                         {openModal === "insert" && <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />}
                         {openModal === "list" && <FriendList dataArray={chatState.friendList} selectFriend={selectFriend} />}
-                        {openModal === "Requests" && <FriendRequests requests={chatState.requests} />}
+                        {openModal === "Requests" && <FriendRequests myRequestList={chatState.myRequestList} />}
                         {/* {openModal === "changeDB" && <div>
                             <HeaderText style={{ borderBottom: "1px solid #ccc", paddingTop: "8px", padding: "8px" }} title='Select DB' />
                             <FormSelectBox onChange={handleChange} options={selectOptions} label="Select DB" value={DBValue} fullWidth={true} />
