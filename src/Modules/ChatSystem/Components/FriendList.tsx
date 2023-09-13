@@ -1,4 +1,5 @@
 
+import { useEffect } from 'react';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -14,10 +15,11 @@ import { ActionComponent } from '../../../Components/Table/NormalTableComponent/
 
 type FriendListProps = {
     dataArray: any[],
-    selectFriend: (data: any, type: string | undefined) => void
+    selectFriend: (data: any, type: string | undefined) => void,
+    userPermission: string
 }
 
-export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFriend = () => { } }) => {
+export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFriend = () => { }, userPermission }) => {
     const headStyle = { backgroundColor: "#e5f3f5", color: "black", textAlign: "start", height: "25px", fontSize: "10px" };
     const headers = [
         {
@@ -47,6 +49,7 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
             }
         },
     ];
+    const style = { visibility: userPermission !== "Admin" ? "hidden" : "visible" };
 
     const getName = (data: any) => {
         if (data?.requestStatus) {
@@ -76,13 +79,16 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
             component: (data: any) => {
                 return <ActionComponent actions={
                     [
-                        { name: "Edit", icon: <ModeEditIcon style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "edit") },
+                        {
+                            name: "Edit", icon: <ModeEditIcon style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "edit"),
+                            style: style
+                        },
                         {
                             name: getName(data.row),
                             icon: getIcon(data.row),
                             onClick: () => selectFriend(data.row, getName(data.row))
                         },
-                        { name: "Delete", icon: <DeleteIcon color='error' style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "delete") }
+                        { name: "Delete", icon: <DeleteIcon color='error' style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "delete"), style: style }
                     ]
                 } />
             },

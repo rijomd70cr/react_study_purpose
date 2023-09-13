@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { PageLayout } from '../../../Layout/Components/PageLayout';
 import { SpeedDialMenu } from '../../../Components/Menu/SpeedialMenu';
@@ -14,6 +14,7 @@ import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend, r
 import { actions } from '../Config/Constants';
 
 import { useAppDispatch, useAppSelector } from "../../../Services/Hook/Hook";
+import { getAuthUser } from '../../../Services/Methods/Authmethods';
 
 type ChatSystemProps = {}
 const user = { email: "", name: "", password: "", mobileNo: "" };
@@ -24,6 +25,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
 
     const [openModal, setOpenModal] = useState('');
     const [initialData, setInitialData] = useState(user);
+    const [permission, setPermission] = useState("");
 
     // const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
     // const [DBValue, setDBValue] = useState('');
@@ -34,6 +36,8 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
 
     useEffect(() => {
         dispatch(myRequest({}));
+        getAuthUser();
+        setPermission("Admin")
         return () => { }
     }, [])
 
@@ -86,8 +90,8 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
             <div>
                 <Drawers isOpen={openModal === "insert" || openModal === "list" || openModal === "Requests"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
                     <div style={{ margin: "1rem" }}>
-                        {openModal === "insert" && <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />}
-                        {openModal === "list" && <FriendList dataArray={chatState.friendList} selectFriend={selectFriend} />}
+                        {openModal === "insert" && permission === "Admin" && <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />}
+                        {openModal === "list" && <FriendList userPermission={permission} dataArray={chatState.friendList} selectFriend={selectFriend} />}
                         {openModal === "Requests" && <FriendRequests myRequestList={chatState.myRequestList} />}
                         {/* {openModal === "changeDB" && <div>
                             <HeaderText style={{ borderBottom: "1px solid #ccc", paddingTop: "8px", padding: "8px" }} title='Select DB' />

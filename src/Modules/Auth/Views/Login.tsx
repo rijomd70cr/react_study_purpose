@@ -47,7 +47,7 @@ const Login = () => {
           if (Object.keys(fetchedData).length !== 0) {
             let data = {
               access_token: fetchedData?.data?.token,
-              user: fetchedData?.data?.user,
+              user: fetchedData?.data?.selectedItemUser,
             };
             if (fetchedData.status_code === 200) {
               setTypeOfAlert("success");
