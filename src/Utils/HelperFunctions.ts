@@ -8,11 +8,9 @@ export const capitalizingData = (data: string): string => {
 };
 
 export const getColorCompo = (key: number) => {
-  console.log(key, "key");
-  const colors = ["orange", "red", "blue", "purple"];
+  const colors = ["blue", "red", "orange", "purple"];
   const colorMap = new Map();
   colors.forEach((color, index) => { colorMap.set(index, color); });
   const getKey = colorMap.get(key);
-  console.log(getKey, "getKey");
   return getKey;
 }

@@ -10,7 +10,7 @@ import { AddFriendForm } from '../Components/AddFriendForm';
 import { FriendList } from '../Components/FriendList';
 import { FriendRequests } from '../Components/FriendRequests';
 
-import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend, requestFriend, cancelFriend, myRequest } from '../Reducer/chatActions';
+import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend, requestFriend, cancelFriend, myRequest, freindRequest } from '../Reducer/chatActions';
 import { actions } from '../Config/Constants';
 
 import { useAppDispatch, useAppSelector } from "../../../Services/Hook/Hook";
@@ -33,13 +33,19 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     //     setDBValue(data);
     //     dispatch(changeDB({ dbName: data }));
     // }
+    const initialize = () => {
+        const user = getAuthUser();
+        setPermission(user.userRole);
+
+        const controller = new AbortController();
+        dispatch(myRequest({}));
+        return () => { controller.abort(); };
+    }
 
     useEffect(() => {
-        dispatch(myRequest({}));
-        getAuthUser();
-        setPermission("Admin")
+        initialize();
         return () => { }
-    }, [])
+    }, [chatState.reloadMyRequest])
 
     useEffect(() => {
         dispatch(friendList({}));
@@ -78,9 +84,21 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
         else if (type === "delete") {
             dispatch(deleteFriend({ email: data.email }));
         }
+        else if (type === "chat") {
+            console.log("Chat Excecute")
+        }
         else {
             setInitialData(data);
             setOpenModal("insert");
+        }
+    }
+
+    const requestSubmission = (type: string, item: any) => {
+        if (type === "Accept") {
+            dispatch(freindRequest({ senderID: item.senderID._id, status: "Accepted", isModify: true }));
+        }
+        else {
+            dispatch(freindRequest({ senderID: item.senderID._id, status: "Rejected", isModify: true }));
         }
     }
 
@@ -92,7 +110,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
                     <div style={{ margin: "1rem" }}>
                         {openModal === "insert" && permission === "Admin" && <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />}
                         {openModal === "list" && <FriendList userPermission={permission} dataArray={chatState.friendList} selectFriend={selectFriend} />}
-                        {openModal === "Requests" && <FriendRequests myRequestList={chatState.myRequestList} />}
+                        {openModal === "Requests" && <FriendRequests myRequestList={chatState.myRequestList} requestSubmission={requestSubmission} />}
                         {/* {openModal === "changeDB" && <div>
                             <HeaderText style={{ borderBottom: "1px solid #ccc", paddingTop: "8px", padding: "8px" }} title='Select DB' />
                             <FormSelectBox onChange={handleChange} options={selectOptions} label="Select DB" value={DBValue} fullWidth={true} />
@@ -105,6 +123,4 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     )
 }
 export default ChatSystem;
-
-
 

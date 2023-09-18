@@ -50,7 +50,7 @@ export const requestMethod = async (
 // USE useFetchWithAbort FROM HOOKS IN SERVICE INSTEAD OF THIS
 // **********************************************************************************
 
-export default axios.create({
+const instance = axios.create({
   baseURL: api_Development,
   headers: {
     "Content-type": "application/json",
@@ -58,4 +58,17 @@ export default axios.create({
     "Accept": "application/json",
     Authorization: getAuthToken()
   }
-})
+});
+
+const cancelTokenSource = axios.CancelToken.source();
+instance.defaults.cancelToken = cancelTokenSource.token;
+
+export const cancelRequests = (reason: any) => {
+  cancelTokenSource.cancel(reason);
+};
+
+export const isCancel = (error: any) => {
+  return axios.isCancel(error);
+};
+
+export default instance;

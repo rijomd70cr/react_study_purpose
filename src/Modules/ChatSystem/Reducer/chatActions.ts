@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from "../../../Services/Request";
+import axios, { cancelRequests, isCancel } from "../../../Services/Request";
 import { RootState } from "../../../Services/Store/Store";
 
 import { insertFriendApi, friendListApi, changeDBApi, deleteFriendApi, requestFriendApi, myRequestsApi } from '../Config/URLConstants';
@@ -78,37 +78,34 @@ export const cancelFriend = createAsyncThunk('chatSystem/deleteFriend',
     }
 )
 
-export const removeFriend = createAsyncThunk('chatSystem/deleteFriend',
-    async (body: any, thunkAPI) => {
+export const freindRequest = createAsyncThunk('chatSystem/freindRequest',
+    async (body: any, { rejectWithValue }) => {
+
         try {
             const response = await axios.post<any>(requestFriendApi, { data: body });
             return response.data
         } catch (error) {
-            thunkAPI.rejectWithValue("error");
+            rejectWithValue("error");
         }
 
     }
 )
 
-export const acceptFriend = createAsyncThunk('chatSystem/deleteFriend',
-    async (body: any, thunkAPI) => {
-        try {
-            const response = await axios.post<any>(requestFriendApi, { data: body });
-            return response.data
-        } catch (error) {
-            thunkAPI.rejectWithValue("error");
-        }
-
-    }
-)
 
 export const myRequest = createAsyncThunk('chatSystem/myRequest',
-    async (body: any, thunkAPI) => {
+    async (body: any, { signal, rejectWithValue }) => {
+
+        signal.addEventListener('abort', () => {
+            cancelRequests('Request canceled by user');
+        });
+
         try {
             const response = await axios.post<any>(myRequestsApi, { data: body });
             return response.data
         } catch (error) {
-            thunkAPI.rejectWithValue("error");
+            if (isCancel(error)) {
+                rejectWithValue("error");
+            }
         }
 
     }

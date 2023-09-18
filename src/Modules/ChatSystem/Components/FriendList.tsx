@@ -1,15 +1,14 @@
 
-import { useEffect } from 'react';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
+import SmsIcon from '@mui/icons-material/Sms';
 
 import { NormalTable } from '../../../Components/Table/NormalTable';
 import { NormalTableProps } from '../../../Components/Table/NormalTable';
 import { PageLayout } from '../../../Layout/Components/PageLayout';
 import { StatusComponents } from '../../../Components/UtilsComponents/HelperComponents';
-
 
 import { ActionComponent } from '../../../Components/Table/NormalTableComponent/ActionComponent';
 
@@ -88,7 +87,8 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
                             icon: getIcon(data.row),
                             onClick: () => selectFriend(data.row, getName(data.row))
                         },
-                        { name: "Delete", icon: <DeleteIcon color='error' style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "delete"), style: style }
+                        { name: "Delete", icon: <DeleteIcon color='error' style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "delete"), style: style },
+                        { name: "Chat", icon: <SmsIcon color='secondary' style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "chat"), style: style }
                     ]
                 } />
             },
