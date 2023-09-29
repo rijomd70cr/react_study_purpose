@@ -48,7 +48,7 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
             }
         },
     ];
-    const style = { visibility: userPermission !== "Admin" ? "hidden" : "visible" };
+    const enable = (userPermission === "Admin") ? true : false;
 
     const getName = (data: any) => {
         if (data?.requestStatus) {
@@ -80,15 +80,16 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
                     [
                         {
                             name: "Edit", icon: <ModeEditIcon style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "edit"),
-                            style: style
+                            enablle: enable
                         },
                         {
                             name: getName(data.row),
                             icon: getIcon(data.row),
-                            onClick: () => selectFriend(data.row, getName(data.row))
+                            onClick: () => selectFriend(data.row, getName(data.row)),
+                            enablle: true
                         },
-                        { name: "Delete", icon: <DeleteIcon color='error' style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "delete"), style: style },
-                        { name: "Chat", icon: <SmsIcon color='secondary' style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "chat"), style: style }
+                        { name: "Delete", icon: <DeleteIcon color='error' style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "delete"), enablle: enable },
+                        { name: "Chat", icon: <SmsIcon color='secondary' style={{ fontSize: "16px" }} />, onClick: () => selectFriend(data.row, "chat"), enablle: true }
                     ]
                 } />
             },
@@ -111,6 +112,6 @@ export const FriendList: React.FC<FriendListProps> = ({ dataArray = [], selectFr
             <NormalTable
                 {...propsForMyComponent}
             />
-        </PageLayout>
+        </PageLayout >
     )
 }

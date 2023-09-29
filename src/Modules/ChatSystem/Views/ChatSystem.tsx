@@ -9,6 +9,7 @@ import { Drawers } from '../../../Components/Drawer/Drawers';
 import { AddFriendForm } from '../Components/AddFriendForm';
 import { FriendList } from '../Components/FriendList';
 import { FriendRequests } from '../Components/FriendRequests';
+import { ChatList } from '../Components/Chat/ChatList';
 
 import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend, requestFriend, cancelFriend, myRequest, freindRequest } from '../Reducer/chatActions';
 import { actions } from '../Config/Constants';
@@ -26,6 +27,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     const [openModal, setOpenModal] = useState('');
     const [initialData, setInitialData] = useState(user);
     const [permission, setPermission] = useState("");
+    const [userData, setUserData] = useState({});
 
     // const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
     // const [DBValue, setDBValue] = useState('');
@@ -85,7 +87,8 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
             dispatch(deleteFriend({ email: data.email }));
         }
         else if (type === "chat") {
-            console.log("Chat Excecute")
+            setUserData(data);
+            setOpenModal("");
         }
         else {
             setInitialData(data);
@@ -104,7 +107,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
 
     return (
         <PageLayout title="Chat System" actions={[]} customMenu={<SpeedDialMenu actions={actions} onClick={onClickSpeedDial} />}>
-            <div>Contents</div>
+            <div><ChatList userData={userData} /></div>
             <div>
                 <Drawers isOpen={openModal === "insert" || openModal === "list" || openModal === "Requests"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
                     <div style={{ margin: "1rem" }}>

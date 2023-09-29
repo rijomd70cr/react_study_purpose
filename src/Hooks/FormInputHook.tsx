@@ -2,10 +2,11 @@ import { useState } from "react";
 
 type initialValue = {
   value: string;
-  label: string;
-  fullWidth: boolean;
-  required: boolean;
-  type: string;
+  label?: string;
+  fullWidth?: boolean;
+  required?: boolean;
+  type?: string;
+  placeholder?: string
 };
 
 export const useFormsInput = (initialValue: initialValue) => {
@@ -22,6 +23,7 @@ export const useFormsInput = (initialValue: initialValue) => {
     fullWidth: initialValue.fullWidth,
     required: initialValue.required,
     type: initialValue.type,
+    placeholder: initialValue.type
   };
 
   return inputProps;

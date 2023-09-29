@@ -1,0 +1,21 @@
+.chatButton {
+    display: flex;
+    background-color: white;
+    align-items: center;
+    justify-content: space-around;
+    position: sticky;
+    margin: auto;
+    width: 95%;
+}
+
+.chat-div {
+    min-height: 60vh;
+    background-color: #d8dee4;
+    border: "1px solid #ccc";
+    padding: 8;
+    overflow-y: scroll;
+}
+
+.chat-box {
+    min-height: 54vh;
+}
