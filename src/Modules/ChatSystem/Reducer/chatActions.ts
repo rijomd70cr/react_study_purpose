@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { cancelRequests, isCancel } from "../../../Services/Request";
 import { RootState } from "../../../Services/Store/Store";
 
-import { insertFriendApi, friendListApi, changeDBApi, deleteFriendApi, requestFriendApi, myRequestsApi } from '../Config/URLConstants';
+import { insertFriendApi, friendListApi, changeDBApi, deleteFriendApi, requestFriendApi, myRequestsApi, myChatRoomApi } from '../Config/URLConstants';
 
 export const getChatSystemState = (state: RootState) => state.chatSystem;
 
@@ -91,7 +91,6 @@ export const freindRequest = createAsyncThunk('chatSystem/freindRequest',
     }
 )
 
-
 export const myRequest = createAsyncThunk('chatSystem/myRequest',
     async (body: any, { signal, rejectWithValue }) => {
 
@@ -101,6 +100,25 @@ export const myRequest = createAsyncThunk('chatSystem/myRequest',
 
         try {
             const response = await axios.post<any>(myRequestsApi, { data: body });
+            return response.data
+        } catch (error) {
+            if (isCancel(error)) {
+                rejectWithValue("error");
+            }
+        }
+
+    }
+)
+
+export const createOrUpdateRomm = createAsyncThunk('chatSystem/createOrUpdateRomm',
+    async (body: any, { signal, rejectWithValue }) => {
+
+        signal.addEventListener('abort', () => {
+            cancelRequests('Request canceled by user');
+        });
+
+        try {
+            const response = await axios.post<any>(myChatRoomApi, body);
             return response.data
         } catch (error) {
             if (isCancel(error)) {

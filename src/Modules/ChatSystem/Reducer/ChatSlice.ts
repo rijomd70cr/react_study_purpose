@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { insertFriend, friendList, deleteFriend, myRequest, freindRequest } from '../Reducer/chatActions';
+import { insertFriend, friendList, deleteFriend, myRequest, freindRequest, createOrUpdateRomm } from '../Reducer/chatActions';
 
 export interface chatState {
     isLoading: Boolean;
@@ -8,15 +8,23 @@ export interface chatState {
     reload: number;
     reloadMyRequest: number,
     myRequestList: any[];
+    myMessages: any[];
+    isChatLoading: Boolean;
+    myChatRoomID: string
 }
 
 const initialState: chatState = {
     isLoading: false,
-    isSuccess: '',
-    friendList: [],
+    isChatLoading: false,
+
     reload: 0,
     reloadMyRequest: 0,
-    myRequestList: []
+    isSuccess: '',
+
+    friendList: [],
+    myRequestList: [],
+    myChatRoomID: "",
+    myMessages: []
 };
 
 export const chatSystemSlice = createSlice({
@@ -95,6 +103,23 @@ export const chatSystemSlice = createSlice({
         builder.addCase(freindRequest.rejected, (state) => {
             state.isLoading = false;
             state.isSuccess = "failed";
+        })
+
+        builder.addCase(createOrUpdateRomm.pending, (state) => {
+            state.isChatLoading = true;
+            state.isSuccess = '';
+        })
+        builder.addCase(createOrUpdateRomm.fulfilled, (state, { payload }) => {
+            state.isChatLoading = false;
+            state.isSuccess = 'success';
+            state.myChatRoomID = payload.data?.roomId || ""
+            state.myMessages = payload.data?.messages || []
+        })
+        builder.addCase(createOrUpdateRomm.rejected, (state) => {
+            state.isChatLoading = false;
+            state.isSuccess = "failed";
+            state.myChatRoomID = "";
+            state.myMessages = [];
         })
 
 

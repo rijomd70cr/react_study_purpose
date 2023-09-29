@@ -1,10 +1,9 @@
 import React from "react";
-import { Box, Grid, Button } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 import { HeaderText } from "../../Components/HeaderText";
 import { FormButton } from "../../Components/FormElements/FormButton";
-
-
+import { Loader } from "../../Components/Loader/Loader";
 
 interface typeAction {
   label: string;
@@ -18,10 +17,11 @@ interface Props {
   children: any;
   actions: typeAction[];
   customMenu?: any;
+  isLoading?: Boolean;
   [x: string]: any
 };
 
-export const PageLayout: React.FC<Props> = ({ title, children, actions, customMenu }) => {
+export const PageLayout: React.FC<Props> = ({ title, children, actions, customMenu, isLoading }) => {
   const styles: { [key: string]: React.CSSProperties } = {
     layout: {
       width: "100%",
@@ -63,7 +63,7 @@ export const PageLayout: React.FC<Props> = ({ title, children, actions, customMe
       </Grid>
       <Grid container sx={{ ...styles.container, paddingTop: "8px" }}>
         <Grid item lg={12} md={12} xs={12}>
-          {children}
+          {isLoading ? <Loader /> : children}
         </Grid>
       </Grid>
     </Box>

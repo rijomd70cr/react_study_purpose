@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import { PageLayout } from '../../../Layout/Components/PageLayout';
 import { SpeedDialMenu } from '../../../Components/Menu/SpeedialMenu';
@@ -11,7 +11,7 @@ import { FriendList } from '../Components/FriendList';
 import { FriendRequests } from '../Components/FriendRequests';
 import { ChatList } from '../Components/Chat/ChatList';
 
-import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend, requestFriend, cancelFriend, myRequest, freindRequest } from '../Reducer/chatActions';
+import { insertFriend, getChatSystemState, friendList, changeDB, deleteFriend, requestFriend, cancelFriend, myRequest, freindRequest, createOrUpdateRomm } from '../Reducer/chatActions';
 import { actions } from '../Config/Constants';
 
 import { useAppDispatch, useAppSelector } from "../../../Services/Hook/Hook";
@@ -27,7 +27,6 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     const [openModal, setOpenModal] = useState('');
     const [initialData, setInitialData] = useState(user);
     const [permission, setPermission] = useState("");
-    const [userData, setUserData] = useState({});
 
     // const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
     // const [DBValue, setDBValue] = useState('');
@@ -35,6 +34,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     //     setDBValue(data);
     //     dispatch(changeDB({ dbName: data }));
     // }
+
     const initialize = () => {
         const user = getAuthUser();
         setPermission(user.userRole);
@@ -87,8 +87,8 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
             dispatch(deleteFriend({ email: data.email }));
         }
         else if (type === "chat") {
-            setUserData(data);
             setOpenModal("");
+            dispatch(createOrUpdateRomm({ sender: data._id, isGroupChat: false }));
         }
         else {
             setInitialData(data);
@@ -105,9 +105,13 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
         }
     }
 
+    const chatList = useMemo(() => {
+        return chatState.myChatRoomID && <ChatList roomId={chatState.myChatRoomID} messages={chatState.myMessages} />;
+    }, [chatState.myChatRoomID]);
+
     return (
-        <PageLayout title="Chat System" actions={[]} customMenu={<SpeedDialMenu actions={actions} onClick={onClickSpeedDial} />}>
-            <div><ChatList userData={userData} /></div>
+        <PageLayout title="Chat System" isLoading={chatState.myChatRoomData?.isChatLoading} actions={[]} customMenu={<SpeedDialMenu actions={actions} onClick={onClickSpeedDial} />}>
+            {chatList}
             <div>
                 <Drawers isOpen={openModal === "insert" || openModal === "list" || openModal === "Requests"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
                     <div style={{ margin: "1rem" }}>
@@ -122,7 +126,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
                 </Drawers>
             </div>
 
-        </PageLayout>
+        </PageLayout >
     )
 }
 export default ChatSystem;
