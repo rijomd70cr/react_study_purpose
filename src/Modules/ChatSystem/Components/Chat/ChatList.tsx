@@ -23,7 +23,10 @@ export const ChatList = ({ roomId, messages }: Props) => {
 
     useEffect(() => {
         if (socket) { connectToRoom(); }
-        return () => { }
+        // if (socket) { socket.connect(); socket.on("", () => { }) } // use ordinary socket
+        // return () => {
+        //     socket.off("connect_error")
+        // }
     }, [socket]);
 
     const connectToRoom = () => {
@@ -32,7 +35,11 @@ export const ChatList = ({ roomId, messages }: Props) => {
 
     const sendMessage = () => {
         console.log(fnameprops.value);
-        socket.emit("send_message", fnameprops.value); // sending an event 
+        const data = {
+            message: fnameprops.value,
+            room: roomId
+        }
+        socket.emit("send_message", data); // sending an event 
     }
 
     return (
