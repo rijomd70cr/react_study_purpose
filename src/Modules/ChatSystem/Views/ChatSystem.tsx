@@ -88,7 +88,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
         }
         else if (type === "chat") {
             setOpenModal("");
-            dispatch(createOrUpdateRomm({ sender: data._id, isGroupChat: false }));
+            dispatch(createOrUpdateRomm({ sender: { _id: data._id, name: data.name }, isGroupChat: false }));
         }
         else {
             setInitialData(data);

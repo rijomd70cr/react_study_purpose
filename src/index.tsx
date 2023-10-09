@@ -16,4 +16,9 @@ root.render(
   </Provider>
   // </React.StrictMode>
 );
+
+// setTimeout(() => {
+//   root.unmount()
+// }, 4000);
+
 reportWebVitals();

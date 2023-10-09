@@ -34,5 +34,11 @@ export const Menu: IRouteDto[] = [
     path: "/chatSystem",
     icon: <CropOriginalIcon />,
     submenu: []
+  },
+  {
+    name: "Study",
+    path: "/study",
+    icon: <CropOriginalIcon />,
+    submenu: []
   }
 ]
