@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type initialValue = {
   value: string;
@@ -10,7 +10,7 @@ type initialValue = {
 };
 
 export const useFormsInput = (initialValue: initialValue) => {
-  const [value, setValue] = useState<string>(initialValue.value);
+  const [value, setValue] = useState<string | number>(initialValue.value);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);

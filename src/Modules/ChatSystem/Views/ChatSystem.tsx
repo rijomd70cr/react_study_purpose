@@ -26,7 +26,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
 
     const [openModal, setOpenModal] = useState('');
     const [initialData, setInitialData] = useState(user);
-    const [permission, setPermission] = useState("");
+    const [permission, setPermission] = useState<any>("");
 
     // const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
     // const [DBValue, setDBValue] = useState('');
@@ -37,7 +37,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
 
     const initialize = () => {
         const user = getAuthUser();
-        setPermission(user.userRole);
+        setPermission(user);
 
         const controller = new AbortController();
         dispatch(myRequest({}));
@@ -115,8 +115,8 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
             <div>
                 <Drawers isOpen={openModal === "insert" || openModal === "list" || openModal === "Requests"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
                     <div style={{ margin: "1rem" }}>
-                        {openModal === "insert" && permission === "Admin" && <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />}
-                        {openModal === "list" && <FriendList userPermission={permission} dataArray={chatState.friendList} selectFriend={selectFriend} />}
+                        {openModal === "insert" && permission?.userRole === "Admin" && <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />}
+                        {openModal === "list" && <FriendList userPermission={permission?.userRole} dataArray={chatState.friendList} selectFriend={selectFriend} />}
                         {openModal === "Requests" && <FriendRequests myRequestList={chatState.myRequestList} requestSubmission={requestSubmission} />}
                         {/* {openModal === "changeDB" && <div>
                             <HeaderText style={{ borderBottom: "1px solid #ccc", paddingTop: "8px", padding: "8px" }} title='Select DB' />
