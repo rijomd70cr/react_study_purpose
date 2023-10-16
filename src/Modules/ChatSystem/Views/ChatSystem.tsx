@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useTransition } from 'react';
 
 import { PageLayout } from '../../../Layout/Components/PageLayout';
 import { SpeedDialMenu } from '../../../Components/Menu/SpeedialMenu';
@@ -27,6 +27,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     const [openModal, setOpenModal] = useState('');
     const [initialData, setInitialData] = useState(user);
     const [permission, setPermission] = useState<any>("");
+    const [isPending, startTransition] = useTransition();
 
     // const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
     // const [DBValue, setDBValue] = useState('');
@@ -88,7 +89,9 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
         }
         else if (type === "chat") {
             setOpenModal("");
-            dispatch(createOrUpdateRomm({ sender: { _id: data._id, name: data.name }, isGroupChat: false }));
+            startTransition(() => {
+                dispatch(createOrUpdateRomm({ sender: { _id: data._id, name: data.name }, isGroupChat: false }));
+            });
         }
         else {
             setInitialData(data);
@@ -106,7 +109,7 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     }
 
     const chatList = useMemo(() => {
-        return chatState.myChatRoomID && <ChatList roomId={chatState.myChatRoomID} messages={chatState.myMessages} />;
+        return isPending ? <div>Loading...</div> : chatState.myChatRoomID && <ChatList roomId={chatState.myChatRoomID} messages={chatState.myMessages} />;
     }, [chatState.myChatRoomID]);
 
     return (
