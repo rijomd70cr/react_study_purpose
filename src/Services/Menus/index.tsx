@@ -29,15 +29,21 @@ export const Menu: IRouteDto[] = [
   //   icon: <CropOriginalIcon />,
   //   submenu: []
   // },
+  // {
+  //   name: "ChatSystem",
+  //   path: "/chatSystem",
+  //   icon: <CropOriginalIcon />,
+  //   submenu: []
+  // },
+  // {
+  //   name: "Study",
+  //   path: "/study",
+  //   icon: <CropOriginalIcon />,
+  //   submenu: []
+  // },
   {
-    name: "ChatSystem",
-    path: "/chatSystem",
-    icon: <CropOriginalIcon />,
-    submenu: []
-  },
-  {
-    name: "Study",
-    path: "/study",
+    name: "DinoGame",
+    path: "/dinoGame",
     icon: <CropOriginalIcon />,
     submenu: []
   }
