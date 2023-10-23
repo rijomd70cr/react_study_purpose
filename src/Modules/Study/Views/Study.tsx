@@ -2,7 +2,8 @@ import { memo } from 'react';
 import { PageLayout } from '../../../Layout/Components/PageLayout';
 import AddIcon from '@mui/icons-material/Add';
 
-import { UsingHooks } from "../Components/UsingHooks";
+import { UsingHooks } from "../Components/UsingHooks";  // usetransition and use differed
+import { UsingHooks1 } from "../Components/UsingHooks1";
 
 type Props = {}
 const Study = (props: Props) => {
@@ -18,7 +19,7 @@ const Study = (props: Props) => {
     }
     return (
         <PageLayout title="Study" actions={[]} >
-            <UsingHooks />
+            <UsingHooks1 />
         </PageLayout >
     )
 }

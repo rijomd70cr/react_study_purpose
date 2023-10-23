@@ -10,7 +10,7 @@ export const UsingHooks = (props: Props) => {
     const [first, setfirst] = useState<any | undefined>([]);
 
     const [value, setValue] = useState("");
-    const [searchData, setSearchData] = useState<any>([]);
+    const [searchData, setSearchData] = useState<any>(sample);
 
     const [inputValue, setInputValue] = useState("");
     const deferredValue = useDeferredValue(inputValue);

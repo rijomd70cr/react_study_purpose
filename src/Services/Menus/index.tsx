@@ -35,16 +35,16 @@ export const Menu: IRouteDto[] = [
   //   icon: <CropOriginalIcon />,
   //   submenu: []
   // },
-  // {
-  //   name: "Study",
-  //   path: "/study",
-  //   icon: <CropOriginalIcon />,
-  //   submenu: []
-  // },
   {
-    name: "DinoGame",
-    path: "/dinoGame",
+    name: "Study",
+    path: "/study",
     icon: <CropOriginalIcon />,
     submenu: []
-  }
+  },
+  // {
+  //   name: "DinoGame",
+  //   path: "/dinoGame",
+  //   icon: <CropOriginalIcon />,
+  //   submenu: []
+  // }
 ]
