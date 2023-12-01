@@ -16,4 +16,7 @@ simple signup,
     2.User store in Localstorage:- encryption
     3.Chat with users
 2. Study 
-    1.useTransition and useDeferedvalu hook
+    1.useTransition and useDeferedvalue hook
+3. Testing
+    1.Unit testing, integration testing, E2E testing
+    2.Using react testing library

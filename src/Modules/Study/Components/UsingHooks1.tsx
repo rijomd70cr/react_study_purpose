@@ -1,23 +1,28 @@
-import { useLayoutEffect, useEffect, useState } from 'react';
+"use client";
+// import { useState,useEffect } from "react";
+import { signal, effect } from "@preact/signals-react";
 
 type Props = {}
 
 export const UsingHooks1 = (props: Props) => {
-    const [first, setfirst] = useState(1);
+    const count = signal(0);
 
-    useLayoutEffect(() => {
-        console.log(first, "useLayoutEffect");
-        return () => { };
-    }, [first])
+    // const [count, setCount] = useState(0);
+    // const [message, setMessage] = useState(0);
 
-    useEffect(() => {
-        console.log(first, "useEffect");
-        return () => { }
-    }, [first])
+    // useEffect(() => {
+    //     setMessage(!message)
+    //     return () => { }
+    // }, [count])
 
     return (
         <div>
-            <button onClick={() => setfirst(prev => prev + 1)}>ok</button>
+            hello:-{count.value}
+            <button onClick={
+                () => {
+                    count.value = count.value + 1;
+                }
+            }>Ok</button>
         </div>
     )
 }

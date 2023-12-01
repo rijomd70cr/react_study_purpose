@@ -2,7 +2,6 @@ import React, { lazy, Suspense, FC, useMemo } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import { Loader } from "../../Components/Loader/Loader";
-import { Drawers } from '../../Components/Drawer/Drawers';
 
 import { useAppSelector } from "../../Services/Hook/Hook";
 import { getSideBarStatus } from "../../Layout/Reducer/LayoutActions";
