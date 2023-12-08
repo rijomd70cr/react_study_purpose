@@ -13,7 +13,7 @@ import {
   logout,
 } from "../Reducer/LayoutActions";
 import { useAppDispatch, useAppSelector } from "../../Services/Hook/Hook";
-import { MenuComponent } from "../../Components/Menu";
+import { MenuComponent } from "Components/Menu";
 import '../Style/style.css'
 
 const styles: { [key: string]: React.CSSProperties } = {

@@ -1,22 +1,24 @@
 import * as React from "react";
 import { ListItemText, ListItemIcon, MenuItem, Menu, Divider, Box } from "@mui/material";
 
-type Props = {
+export type menuItemsProps = {
+  name: string;
+  action?: () => void;
+  icon?: React.ReactElement | undefined;
+  needDivider?: boolean;
+  isDisabled?: boolean;
+  iconStyle?: object;
+  style?: object;
+};
+
+export type MenuComponentProps = {
   headers: any;
   maxHeight?: string,
   width?: string,
-  menuItems: {
-    name: string;
-    action?: () => void;
-    icon?: React.ReactElement | undefined;
-    needDivider?: boolean;
-    isDisabled?: boolean;
-    iconStyle?: object;
-    style?: object;
-  }[];
+  menuItems: menuItemsProps[];
 };
 
-export const MenuComponent = (Props: Props) => {
+export const MenuComponent = (Props: MenuComponentProps) => {
   const { headers, menuItems, maxHeight, width } = Props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

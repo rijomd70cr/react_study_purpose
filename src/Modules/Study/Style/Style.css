@@ -1,0 +1,17 @@
+.table-methods {
+    width: 70%;
+    padding-top: 1rem;
+}
+
+.table-methods table th {
+    padding: 10px;
+    min-width: 60px;
+    background-color: aliceblue;
+    position: relative;
+}
+
+.table-methods table td {
+    padding: 8px;
+    min-width: 60px;
+    min-height: 40px;
+}
