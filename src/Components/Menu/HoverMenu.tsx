@@ -16,16 +16,15 @@ export type HoverMenuProps = {
     menuTitleComponent: React.ReactNode,
 }
 
-const menuComponentStyle = { padding: "12px 6px", display: "flex", justifyContent: "space-around" };
 
 export const HoverMenu = ({ menuOptions, menuTitleComponent }: HoverMenuProps) => {
     return (
-        <span className="dropdown">
+        <div className="dropdown">
             <div className="drop-btn">{menuTitleComponent}</div>
             <div className="dropdown-content">
                 {menuOptions?.length > 0 && menuOptions.map((item, key) => {
                     return item.menuComponent ? item.menuComponent : <div key={key}
-                        style={{ ...menuComponentStyle, ...item.style }}
+                        style={{ ...item.style }}
                         className="dropdown-sub-content"
                         onClick={item.action}
                     >
@@ -34,6 +33,6 @@ export const HoverMenu = ({ menuOptions, menuTitleComponent }: HoverMenuProps) =
                 })}
 
             </div>
-        </span>
+        </div>
     )
 }

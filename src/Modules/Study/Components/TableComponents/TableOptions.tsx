@@ -1,6 +1,5 @@
-import React from 'react'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import PaymentsIcon from '@mui/icons-material/Payments';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import { HoverMenu, menuOptionsProps } from "Components/Menu/HoverMenu";
 
@@ -15,10 +14,15 @@ export const TableOptions = (props: Props) => {
 
     const actions: menuOptionsProps[] = [
         {
-            label: `Group By ${props.label}`,
+            label: `Group By`,
             action: () => props.action("groupBy"),
-            icon: <PaymentsIcon fontSize="small" color='primary' />,
-            style: { color: "#1976d2", display: props.isGrouping ? "block" : "none" }
+            icon: <ArrowForwardIosIcon fontSize="small" />,
+            style: { display: props.isGrouping ? "block" : "none" }
+        },
+        {
+            label: "Clear All",
+            action: () => props.action("clearAll"),
+            icon: <ArrowForwardIosIcon fontSize="small" />,
         },
     ];
 

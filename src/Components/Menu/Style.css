@@ -3,15 +3,17 @@
       display: inline-block;
       top: 100%;
       left: 0;
+      padding: 8px;
   }
 
   .dropdown-content {
       display: none;
       position: absolute;
       background-color: #f9f9f9;
-      min-width: 160px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
       z-index: 1;
+      width: max-content;
+      min-width: 150px;
   }
 
   .dropdown-content {
@@ -21,4 +23,11 @@
 
   .dropdown:hover .dropdown-content {
       display: block;
+  }
+
+  .dropdown-sub-content {
+      padding: 8px 4px;
+      display: flex !important;
+      justify-content: space-around;
+      color:black;
   }

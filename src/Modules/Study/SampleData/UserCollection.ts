@@ -91,7 +91,7 @@ type headerTypes = {
     name: string,
     label: string,
     isGrouping?: boolean,
-    style?: any
+    style?: any,
 }
 
 export const headers: headerTypes[] = [
@@ -101,11 +101,11 @@ export const headers: headerTypes[] = [
     },
     {
         name: "name",
-        label: "Name",
+        label: "Name"
     },
     {
         name: "mobileNumber",
-        label: "Mobile Number",
+        label: "Mobile Number"
     },
     {
         name: "memberCategory",
