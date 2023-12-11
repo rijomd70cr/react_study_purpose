@@ -19,6 +19,7 @@ export const TableMethods = (props: Props) => {
         setTableData({ [groupingKey]: tableData });
         setOriginalData(tableData);
         return () => { }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const bodyData = useMemo(() => {

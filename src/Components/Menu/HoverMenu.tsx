@@ -24,7 +24,7 @@ export const HoverMenu = ({ menuOptions, menuTitleComponent }: HoverMenuProps) =
             <div className="dropdown-content">
                 {menuOptions?.length > 0 && menuOptions.map((item, key) => {
                     return item.menuComponent ? item.menuComponent : <div key={key}
-                        style={{ ...item.style }}
+                        style={item.style}
                         className="dropdown-sub-content"
                         onClick={item.action}
                     >
