@@ -142,6 +142,7 @@ export const TableMethods = (props: Props) => {
                             <tr>{Headers}</tr>
                         </thead>
 
+                        {/* //direction="horizontal"   for column vise  */}
                         {groupingKey === "list" && <Droppable droppableId="droppable">
                             {(provided, snapshot) => (
                                 <tbody
