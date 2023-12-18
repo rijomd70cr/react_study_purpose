@@ -5,6 +5,7 @@ import excel from './Excel';
 import chatSystem from './ChatSystem';
 import study from './Study';
 import dinoGame from './DinoGame';
+import FAQChatBot from './FAQChatBot';
 
 
 // type rotuerType = {
@@ -19,6 +20,16 @@ import dinoGame from './DinoGame';
 //     auth: comman;
 //     home: comman
 // }
-const containers: any = { home: home, auth: auth, user: user, excel: excel, chatSystem: chatSystem, study: study, dinoGame: dinoGame };
+
+const containers: any = {
+    home: home,
+    auth: auth,
+    user: user,
+    excel: excel,
+    chatSystem: chatSystem,
+    study: study,
+    dinoGame: dinoGame,
+    FAQChatBot: FAQChatBot
+};
 
 export default containers
