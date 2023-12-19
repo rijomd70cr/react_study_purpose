@@ -37,9 +37,11 @@ export const DynamicPdfForm = () => {
 
     function convertHtmlToPdf(type) {
         const iframe = document.getElementById("myIframe");
+
         const doc = new jsPDF();
         const iframeWindow = iframe.contentWindow;
         const iframeDocument = iframeWindow.document;
+
         html2canvas(iframeDocument.body).then(canvas => {
             const imageData = canvas.toDataURL("image/png");
             if (type === "save") {
@@ -56,7 +58,17 @@ export const DynamicPdfForm = () => {
                 iframe.src = pdfDataUri;
 
             }
+            if (type === "image") {
+                const dataUrl = canvas.toDataURL();
+                console.log(dataUrl);
+                const imageElement = new Image();
+                imageElement.src = dataUrl;
+                // document.body.appendChild(imageElement);
+                document.getElementById("myList").appendChild(imageElement);
+            }
         });
+
+
     }
 
     useEffect(() => {
@@ -94,8 +106,13 @@ export const DynamicPdfForm = () => {
                     })}
                 </tbody>
             </table>}
+
             <p onClick={() => convertHtmlToPdf("save")}>Save</p>
             <p onClick={() => convertHtmlToPdf("pdf")}>PDF</p>
+            <p onClick={() => convertHtmlToPdf("image")}>Image</p>
+
+            <div id="myList"></div>
+
         </div>
     )
 }

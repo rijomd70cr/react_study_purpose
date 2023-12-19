@@ -2,7 +2,9 @@ import { memo } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 
 import { PageLayout } from '../../../Layout/Components/PageLayout';
-import { TableResize } from '../Components/TableResize';
+// import { TableResize } from '../Components/TableResize';
+import { DynamicPdfForm } from '../Components/DynamicPdfForm';
+
 
 type Props = {}
 const UserList = (props: Props) => {
@@ -18,7 +20,7 @@ const UserList = (props: Props) => {
     }
     return (
         <PageLayout title="User List" actions={actions} >
-            <TableResize />
+            <DynamicPdfForm />
         </PageLayout >
     )
 }
