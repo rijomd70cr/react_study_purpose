@@ -3,8 +3,8 @@ import { useState, useEffect, useMemo } from 'react';
 import { PageLayout } from '../../../Layout/Components/PageLayout';
 import { SpeedDialMenu } from '../../../Components/Menu/SpeedialMenu';
 import { Drawers } from '../../../Components/Drawer/Drawers';
-// import { FormSelectBox } from '../../../Components/FormElements/FormSelectBox';
-// import { HeaderText } from "../../../Components/HeaderText";
+import { FormSelectBox } from '../../../Components/FormElements/FormSelectBox';
+import { HeaderText } from "../../../Components/HeaderText";
 
 import { AddFriendForm } from '../Components/AddFriendForm';
 import { FriendList } from '../Components/FriendList';
@@ -27,13 +27,14 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     const [openModal, setOpenModal] = useState('');
     const [initialData, setInitialData] = useState(user);
     const [permission, setPermission] = useState<any>("");
+    const openModalOptions: any[] = ["insert", "list", "Requests", "changeDB"];
 
-    // const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
-    // const [DBValue, setDBValue] = useState('');
-    // const handleChange = (data: string) => {
-    //     setDBValue(data);
-    //     dispatch(changeDB({ dbName: data }));
-    // }
+    const selectOptions = [{ label: "Development", value: "Development" }, { label: "Production", value: "Production" }];
+    const [DBValue, setDBValue] = useState('');
+    const handleChange = (data: string) => {
+        setDBValue(data);
+        dispatch(changeDB({ dbName: data }));
+    }
 
     const initialize = () => {
         const user = getAuthUser();
@@ -47,11 +48,13 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
     useEffect(() => {
         initialize();
         return () => { }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chatState.reloadMyRequest])
 
     useEffect(() => {
         dispatch(friendList({}));
         return () => { }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chatState.reload])
 
     const handleSaveForm = (data: any) => {
@@ -107,21 +110,22 @@ const ChatSystem: React.FC<ChatSystemProps> = () => {
 
     const chatList = useMemo(() => {
         return chatState.myChatRoomID && <ChatList roomId={chatState.myChatRoomID} messages={chatState.myMessages} />;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chatState.myChatRoomID]);
 
     return (
         <PageLayout title="Chat System" isLoading={chatState.myChatRoomData?.isChatLoading} actions={[]} customMenu={<SpeedDialMenu actions={actions} onClick={onClickSpeedDial} />}>
             {chatList}
             <div>
-                <Drawers isOpen={openModal === "insert" || openModal === "list" || openModal === "Requests"} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
+                <Drawers isOpen={openModalOptions.includes(openModal)} anchor={"right"} onClose={(data) => setOpenModal('')} style={{ width: "45%" }}>
                     <div style={{ margin: "1rem" }}>
                         {openModal === "insert" && permission?.userRole === "Admin" && <AddFriendForm onSubmit={handleSaveForm} initialData={initialData} />}
                         {openModal === "list" && <FriendList userPermission={permission?.userRole} dataArray={chatState.friendList} selectFriend={selectFriend} />}
                         {openModal === "Requests" && <FriendRequests myRequestList={chatState.myRequestList} requestSubmission={requestSubmission} />}
-                        {/* {openModal === "changeDB" && <div>
+                        {openModal === "changeDB" && <div>
                             <HeaderText style={{ borderBottom: "1px solid #ccc", paddingTop: "8px", padding: "8px" }} title='Select DB' />
                             <FormSelectBox onChange={handleChange} options={selectOptions} label="Select DB" value={DBValue} fullWidth={true} />
-                        </div>} */}
+                        </div>}
                     </div>
                 </Drawers>
             </div>

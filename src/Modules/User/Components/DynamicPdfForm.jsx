@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 
+// import pdfjs from 'pdfjs-dist';
+
 import { InvoiceData } from '../Config/InvoiceData';
 import { capitalizingData } from "../../../Utils/HelperFunctions";
 
@@ -9,6 +11,7 @@ export const DynamicPdfForm = () => {
     const [tableData, setTableData] = useState([]);
     const [tableFormData, setTableFormData] = useState([]);
     const fileName = "sample";
+    const [pngImages, setPngImages] = useState("");
 
     useEffect(() => {
         if (InvoiceData?.items?.length > 0) {
@@ -68,7 +71,6 @@ export const DynamicPdfForm = () => {
             }
         });
 
-
     }
 
     useEffect(() => {
@@ -88,6 +90,38 @@ export const DynamicPdfForm = () => {
         };
     }, [tableFormData])
 
+    // const convertPdfToPng = async (base64PdfString) => {
+    //     try {
+    //         const pdfData = atob(base64PdfString);
+
+    //         // Load PDF document
+    //         const pdf = await pdfjs.getDocument({ data: pdfData }).promise;
+
+    //         const pngs = [];
+
+    //         for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+    //             const page = await pdf.getPage(pageNumber);
+
+    //             // Create a canvas element to render the PDF page
+    //             const canvas = document.createElement('canvas');
+    //             const viewport = page.getViewport({ scale: 2 }); // Adjust scale as needed
+
+    //             canvas.width = viewport.width;
+    //             canvas.height = viewport.height;
+
+    //             const canvasContext = canvas.getContext('2d');
+    //             await page.render({ canvasContext, viewport }).promise;
+
+    //             // Convert the canvas to a data URL (PNG)
+    //             const dataUrl = canvas.toDataURL('image/png');
+    //             pngs.push(dataUrl);
+    //         }
+
+    //         setPngImages(pngs);
+    //     } catch (error) {
+    //         console.error('Error converting PDF to PNG:', error);
+    //     }
+    // };
 
     return (
         <div>
@@ -110,8 +144,6 @@ export const DynamicPdfForm = () => {
             <p onClick={() => convertHtmlToPdf("save")}>Save</p>
             <p onClick={() => convertHtmlToPdf("pdf")}>PDF</p>
             <p onClick={() => convertHtmlToPdf("image")}>Image</p>
-
-            <div id="myList"></div>
 
         </div>
     )

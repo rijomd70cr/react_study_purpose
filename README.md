@@ -15,6 +15,7 @@ simple signup,
     1.User Permission :- Admin and User 
     2.User store in Localstorage:- encryption
     3.Chat with users
+    4.Multiple Db connection
 2. User
     1.Dynamic pdf 
     2.Table Resize
@@ -26,3 +27,5 @@ simple signup,
 4. Testing
     1.Unit testing, integration testing, E2E testing
     2.Using react testing library
+5. FAQChatBot
+    1.
