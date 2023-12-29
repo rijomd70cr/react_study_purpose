@@ -3,8 +3,8 @@ import AddIcon from '@mui/icons-material/Add';
 
 import { PageLayout } from '../../../Layout/Components/PageLayout';
 // import { TableResize } from '../Components/TableResize';
-import { DynamicPdfForm } from '../Components/DynamicPdfForm';
-
+// import { DynamicPdfForm } from '../Components/DynamicPdfForm';
+import { JsonToCsv } from "../Components/JsonToCsv";
 
 type Props = {}
 const UserList = (props: Props) => {
@@ -19,8 +19,8 @@ const UserList = (props: Props) => {
     const addItem = (data: Object) => {
     }
     return (
-        <PageLayout title="User List" actions={actions} >
-            <DynamicPdfForm />
+        <PageLayout title="List" actions={actions} >
+            <JsonToCsv />
         </PageLayout >
     )
 }
