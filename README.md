@@ -19,7 +19,7 @@ simple signup,
 2. User
     1.Dynamic pdf 
     2.Table Resize
-    3.Bulk upload
+    3.convert to csv || json
 3. Study 
     1.useTransition and useDeferedvalue hook
     2.Table Methods : 

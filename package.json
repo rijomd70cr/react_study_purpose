@@ -23,6 +23,7 @@
     "axios": "^1.2.2",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.7",
+    "exceljs": "^4.4.0",
     "formik": "^2.4.2",
     "fs": "^0.0.1-security",
     "html2canvas": "^1.4.1",
@@ -69,6 +70,7 @@
     ]
   },
   "devDependencies": {
+    "@types/papaparse": "^5.3.14",
     "@types/react-beautiful-dnd": "^13.1.7"
   }
 }

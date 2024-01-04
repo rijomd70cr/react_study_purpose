@@ -1,13 +1,10 @@
-import React, { useImperativeHandle, forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 import usersData from '../Config/User.json';
+// import ExcelJS from 'exceljs';
 
 type Props = {}
 
 export const JsonToCsv = forwardRef((props: Props, ref) => {
-
-    useImperativeHandle(ref, () => ({
-
-    }));
 
     const downloadFile = ({ data, fileName, fileType }: { data: any, fileName: string, fileType: string }) => {
         const blob = new Blob([data], { type: fileType })
@@ -47,21 +44,6 @@ export const JsonToCsv = forwardRef((props: Props, ref) => {
         })
     }
 
-    const handleDownload = (data: any) => {
-        const csvContent = 'data:text/csv;charset=utf-8,' +
-            'id,name,surname,age\n' +
-            '1,Caitlyn,Kerluke,24\n' +
-            '2,Rowan,Nikolaus,45,Option1,Option2,Option3';
-
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement('a');
-        link.href = encodedUri;
-        link.setAttribute('download', 'data.csv');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
-
     return (
         <div>
             <table className='usersTable'>
@@ -92,9 +74,6 @@ export const JsonToCsv = forwardRef((props: Props, ref) => {
             </button>
             <button type='button' onClick={exportToCsv}>
                 Export to CSV
-            </button>
-            <button type='button' onClick={() => handleDownload(usersData.users)}>
-                Export to CSV new
             </button>
         </div>
     )
