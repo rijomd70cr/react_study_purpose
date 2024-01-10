@@ -12,8 +12,8 @@ simple signup,
 
 # Modules :- 
 1. Chat System 
-    1.User Permission :- Admin and User 
-    2.User store in Localstorage:- encryption
+    1.User Permission :- Admin and User :- authorization key (jwt token) stores in local storage,
+    2.User store in Local storage:- encryption,
     3.Chat with users
     4.Multiple Db connection
 2. User
@@ -25,6 +25,7 @@ simple signup,
     2.Table Methods : 
         grouping,
         react-beautiful-dnd (draggable) : each row wise
+    3.theme :
 4. Testing
     1.Unit testing, integration testing, E2E testing
     2.Using react testing library

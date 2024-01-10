@@ -17,12 +17,12 @@ export const Menu: IRouteDto[] = [
     submenu: []
     // submenu: [{ name: "DashBoard 1", path: "/dashbord", icon: <InboxIcon /> ,submenu:[]}]
   },
-  {
-    name: "User",
-    path: "/userList",
-    icon: <CropOriginalIcon />,
-    submenu: []
-  },
+  // {
+  //   name: "User",
+  //   path: "/userList",
+  //   icon: <CropOriginalIcon />,
+  //   submenu: []
+  // },
   // {
   //   name: "Excel",
   //   path: "/excel",
@@ -35,22 +35,22 @@ export const Menu: IRouteDto[] = [
   //   icon: <CropOriginalIcon />,
   //   submenu: []
   // },
-  // {
-  //   name: "Study",
-  //   path: "/study",
-  //   icon: <CropOriginalIcon />,
-  //   submenu: []
-  // },
+  {
+    name: "Study",
+    path: "/study",
+    icon: <CropOriginalIcon />,
+    submenu: []
+  },
   // {
   //   name: "DinoGame",
   //   path: "/dinoGame",
   //   icon: <CropOriginalIcon />,
   //   submenu: []
   // },
-  {
-    name: "FAQChatBot",
-    path: "/FAQChatBot",
-    icon: <CropOriginalIcon />,
-    submenu: []
-  },
+  // {
+  //   name: "FAQChatBot",
+  //   path: "/FAQChatBot",
+  //   icon: <CropOriginalIcon />,
+  //   submenu: []
+  // },
 ]
